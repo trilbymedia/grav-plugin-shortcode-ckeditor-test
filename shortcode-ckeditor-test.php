@@ -11,7 +11,7 @@ use Grav\Plugin\ShortcodeCore\ShortcodeTwigVar;
 use RocketTheme\Toolbox\Event\Event;
 
 
-class ShortcodeCorePlugin extends Plugin
+class ShortcodeCkeditorTestPlugin extends Plugin
 {
     /** @var  ShortcodeManager $shortcodes */
     protected $shortcodes;
@@ -47,7 +47,7 @@ class ShortcodeCorePlugin extends Plugin
         $this->config = $this->grav['config'];
 
         // don't continue if this is admin and plugin is disabled for admin
-        if (!$this->config->get('plugins.shortcode-core.active_admin') && $this->isAdmin()) {
+        if (!$this->config->get('plugins.shortcode-ckeditor-test.active_admin') && $this->isAdmin()) {
             return;
         }
 
@@ -208,13 +208,13 @@ class ShortcodeCorePlugin extends Plugin
      */
     public function onShortcodeHandlers()
     {
-        $include_default_shortcodes = $this->config->get('plugins.shortcode-core.include_default_shortcodes', true);
+        $include_default_shortcodes = $this->config->get('plugins.shortcode-ckeditor-test.include_default_shortcodes', true);
         if ($include_default_shortcodes) {
             $this->shortcodes->registerAllShortcodes(__DIR__ . '/classes/shortcodes', ['ignore' => ['Shortcode', 'ShortcodeObject']]);
         }
 
         // Add custom shortcodes directory if provided
-        $custom_shortcodes = $this->config->get('plugins.shortcode-core.custom_shortcodes');
+        $custom_shortcodes = $this->config->get('plugins.shortcode-ckeditor-test.custom_shortcodes');
         if (isset($custom_shortcodes)) {
             $this->shortcodes->registerAllShortcodes(GRAV_ROOT . $custom_shortcodes);
         }

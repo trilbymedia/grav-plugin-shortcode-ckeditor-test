@@ -61,7 +61,7 @@ abstract class Shortcode
      */
     public function getParser()
     {
-        return $this->config->get('plugins.shortcode-core.parser');
+        return $this->config->get('plugins.shortcode-ckeditor-test.parser');
     }
 
     /**

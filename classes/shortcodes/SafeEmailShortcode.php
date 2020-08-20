@@ -9,8 +9,8 @@ class SafeEmailShortcode extends Shortcode
     {
         $this->shortcode->getHandlers()->add('safe-email', function(ShortcodeInterface $sc) {
             // Load assets if required
-            if ($this->config->get('plugins.shortcode-core.fontawesome.load', false)) {
-                $this->shortcode->addAssets('css', $this->config->get('plugins.shortcode-core.fontawesome.url'));
+            if ($this->config->get('plugins.shortcode-ckeditor-test.fontawesome.load', false)) {
+                $this->shortcode->addAssets('css', $this->config->get('plugins.shortcode-ckeditor-test.fontawesome.url'));
             }
 
             // Get shortcode content and parameters
@@ -34,7 +34,7 @@ class SafeEmailShortcode extends Shortcode
 
             // Handle icon option
             if ($icon) {
-                if ($this->config->get('plugins.shortcode-core.fontawesome.v5', false)) {
+                if ($this->config->get('plugins.shortcode-ckeditor-test.fontawesome.v5', false)) {
                     if (preg_match("/^(?P<weight>fa[srlbd]) fa-(?<icon>.+)/", $icon, $icon_parts)) {
                         $icon_base = $icon_parts["weight"] . " fa-";
                         $icon = $icon_parts["icon"];
