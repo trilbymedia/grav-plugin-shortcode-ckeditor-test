@@ -1,0 +1,58 @@
+.ck-shortcode-settings-popup {
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 1000000;
+}
+
+.ck-shortcode-settings-popup > .backdrop {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.ck-shortcode-settings-popup > .inside {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 10px 10px;
+  position: absolute;
+  width: 240px;
+  z-index: 1;
+}
+
+.ck-shortcode-settings-popup .delete {
+  cursor: pointer;
+  height: 16px;
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  width: 16px;
+}
+
+.ck-shortcode-settings-popup .buttons {
+  margin-top: 10px;
+}
+
+.ck-shortcode-settings-popup .buttons button {
+  margin-left: 4px;
+}
+
+.ck-shortcode-settings-popup .buttons button:first-child {
+  margin-left: 0;
+}
+
+.ck-shortcode-settings-popup .attribute {
+  margin-top: 10px;
+}
+
+.ck-shortcode-settings-popup .attribute:first-child {
+  margin-top: 0;
+}
+
+.ck-shortcode-settings-popup .attribute .title {
+  font-weight: 700;
+}

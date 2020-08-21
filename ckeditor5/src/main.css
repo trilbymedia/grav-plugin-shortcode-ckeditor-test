@@ -1,0 +1,66 @@
+.ck-shortcode {
+  position: relative;
+}
+
+.ck-shortcode-block {
+  border: 1px solid #ccc;
+  display: block;
+  margin: 16px 0;
+}
+
+.ck-shortcode-block > .sc-header {
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  display: flex!important;
+  font-size: 14px;
+  line-height: 1.5;
+  padding: 4px 8px;
+}
+
+.ck-shortcode-block > .sc-header > .sc-title > .sc-value {
+  font-weight: 700;
+}
+
+.ck-shortcode-block > .sc-header > .sc-titlebar {
+  margin-left: 24px;
+}
+
+.ck-shortcode-block > .sc-header > .sc-settings {
+  font-size: 0;
+  line-height: 0;
+  margin-left: auto;
+}
+
+.ck-shortcode-block > .sc-header > .sc-settings > svg {
+  cursor: pointer;
+  height: 24px;
+  width: 24px;
+}
+
+.ck-shortcode-block > .sc-content {
+  padding: 4px 8px;
+}
+
+.ck-shortcode-inline {
+  border: 1px solid #ccc;
+  display: inline-flex;
+}
+
+.ck-shortcode-inline > .sc-content {
+  padding: 0 4px;
+}
+
+.ck-shortcode-inline > .sc-settings {
+  align-items: center;
+  border-left: 1px solid #ccc;
+  display: inline-flex!important;
+  font-size: 0;
+  line-height: 0;
+  padding: 0 2px;
+}
+
+.ck-shortcode-inline > .sc-settings > svg {
+  cursor: pointer;
+  height: 16px;
+  width: 16px;
+}

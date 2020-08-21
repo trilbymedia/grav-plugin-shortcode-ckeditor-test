@@ -1,0 +1,116 @@
+shortcode-links-list .sc-list p {
+  margin: 0!important;
+}
+
+shortcode-links-list_block {
+  margin: 26px 0 26px 8px!important;
+  position: relative;
+}
+
+shortcode-links-list_block:before {
+  background: #000;
+  border-radius: 50%;
+  content: '';
+  display: block;
+  height: 4px;
+  left: -10px;
+  position: absolute;
+  width: 4px;
+  transform: translateY(-50%);
+  top: 50%;
+}
+
+shortcode-links-list_block .sc-link .sc-required {
+  font-weight: 700;
+}
+
+shortcode-links-list_block .sc-link .sc-title {
+  font-weight: 700;
+}
+
+shortcode-links-list_block .sc-link.sc-size-small {
+  font-size: 12px;
+}
+
+shortcode-links-list_block .sc-link.sc-size-medium {
+  font-size: 14px;
+}
+
+shortcode-links-list_block .sc-link.sc-size-large {
+  font-size: 16px;
+}
+
+shortcode-links-list_block .sc-body {
+  color: #06f;
+}
+
+shortcode-links-list .sc-extra .add-button {
+  background: #fff;
+  border: 1px solid #000;
+  border-radius: 50%;
+  bottom: 5px;
+  color: green;
+  cursor: pointer;
+  height: 20px;
+  position: absolute;
+  right: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+}
+
+shortcode-links-list_block .sc-extra .add-button {
+  background: #fff;
+  border: 1px solid #000;
+  border-radius: 50%;
+  color: green;
+  cursor: pointer;
+  height: 20px;
+  position: absolute;
+  right: 50%;
+  top: -24px;
+  transform: translateX(-50%);
+  width: 20px;
+}
+
+shortcode-links-list_block .sc-extra .up-button {
+  background: #fff;
+  border: 1px solid #000;
+  border-radius: 50%;
+  color: green;
+  cursor: pointer;
+  height: 20px;
+  position: absolute;
+  right: 40px;
+  top: -10px;
+  width: 20px;
+}
+
+shortcode-links-list_block:first-child .sc-extra .up-button {
+  display: none;
+}
+
+shortcode-links-list_block .sc-extra .up-button svg {
+  margin: -4px 0 0 -4px;
+  transform: rotate(180deg);
+}
+
+shortcode-links-list_block .sc-extra .down-button {
+  background: #fff;
+  border: 1px solid #000;
+  border-radius: 50%;
+  bottom: -10px;
+  color: green;
+  cursor: pointer;
+  height: 20px;
+  position: absolute;
+  right: 40px;
+  width: 20px;
+}
+
+shortcode-links-list_block:last-child .sc-extra .down-button {
+  display: none;
+}
+
+shortcode-links-list_block .sc-extra .down-button svg {
+  margin: 0 -4px -4px 0px;
+}

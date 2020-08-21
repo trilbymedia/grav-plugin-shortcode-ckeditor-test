@@ -24,7 +24,12 @@ class ShortcodeCkeditorTestPlugin extends Plugin
         return [
             'onPluginsInitialized' => [
                 ['autoload', 100001],
-                ['onPluginsInitialized', 10]
+                ['onPluginsInitialized', 10],
+            ],
+            'registerCKEditor5Plugin' => [
+                ['registerCKEditor5Plugin', 0],
+                ['registerCKEditor5PluginShortcodes', 0],
+                ['registerCKEditor5PluginAdyen', 0],
             ]
         ];
     }
@@ -227,5 +232,63 @@ class ShortcodeCkeditorTestPlugin extends Plugin
     {
         $this->grav['twig']->twig()->addFilter(new \Twig_SimpleFilter('shortcodes', [$this->shortcodes, 'processShortcodes']));
         $this->grav['twig']->twig_vars['shortcode'] = new ShortcodeTwigVar();
+    }
+
+    public function registerCKEditor5Plugin($event) {
+        $config = $this->config->get('plugins.shortcode-ckeditor-test.ckeditor5');
+        $plugins = $event['plugins'];
+
+        if ($config['env'] !== 'development') {
+            $plugins['css'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/dist/css/app.css';
+            $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/dist/js/app.js';
+        } else {
+            $plugins['js'][] = 'http://' . $config['dev_host'] . ':' . $config['dev_port'] . '/js/app.js';
+        }
+
+        $event['plugins']  = $plugins;
+        return $event;
+    }
+
+    public function registerCKEditor5PluginShortcodes($event) {
+        $plugins = $event['plugins'];
+
+        // color
+        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/color/color.js';
+
+        // div
+        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/div/div.js';
+
+        // fieldset
+        $plugins['css'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/fieldset/fieldset.css';
+        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/fieldset/fieldset.js';
+
+        // links-list
+        $plugins['css'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/links-list/links-list.css';
+        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/links-list/links-list.js';
+
+        // lorem
+        $plugins['css'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/lorem/lorem.css';
+        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/lorem/lorem.js';
+
+        // notice
+        $plugins['css'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/notice/notice.css';
+        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/notice/notice.js';
+
+        // underline
+        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/u/u.js';
+
+        $event['plugins']  = $plugins;
+        return $event;
+    }
+
+    public function registerCKEditor5PluginAdyen($event) {
+        $plugins = $event['plugins'];
+
+        // links-list
+        $plugins['css'][] = 'plugin://shortcode-ckeditor-test/adyen/shortcodes/links-list/links-list.css';
+        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/adyen/shortcodes/links-list/links-list.js';
+
+        $event['plugins']  = $plugins;
+        return $event;
     }
 }
