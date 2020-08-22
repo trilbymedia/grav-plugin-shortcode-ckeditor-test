@@ -22,7 +22,7 @@ window.ckeditor5.addHook('hookMarkdowntoHTML', {
             ? groups.content.replace(/<p>$/, '')
             : groups.content;
 
-          let replacement = `<shortcode-${shortcode.name}${groups.attributes}>${content}</shortcode-${shortcode.name}>`;
+          let replacement = `<shortcode-${shortcode.name}${groups.attributes || ''}>${content}</shortcode-${shortcode.name}>`;
 
           if (shortcode.type === 'inline') {
             replacement = `${groups.p1 || ''}${replacement}${groups.p2 || ''}`;

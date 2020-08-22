@@ -262,10 +262,6 @@ class ShortcodeCkeditorTestPlugin extends Plugin
         $plugins['css'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/fieldset/fieldset.css';
         $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/fieldset/fieldset.js';
 
-        // links-list
-        $plugins['css'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/links-list/links-list.css';
-        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/links-list/links-list.js';
-
         // lorem
         $plugins['css'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/lorem/lorem.css';
         $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/lorem/lorem.js';
@@ -287,6 +283,10 @@ class ShortcodeCkeditorTestPlugin extends Plugin
         // links-list
         $plugins['css'][] = 'plugin://shortcode-ckeditor-test/adyen/shortcodes/links-list/links-list.css';
         $plugins['js'][] = 'plugin://shortcode-ckeditor-test/adyen/shortcodes/links-list/links-list.js';
+
+        // tabs
+        $plugins['css'][] = 'plugin://shortcode-ckeditor-test/adyen/shortcodes/tabs/tabs.css';
+        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/adyen/shortcodes/tabs/tabs.js';
 
         $event['plugins']  = $plugins;
         return $event;

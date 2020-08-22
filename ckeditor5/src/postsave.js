@@ -66,17 +66,7 @@ window.ckeditor5.addHook('hookHTMLtoMarkdown', {
             content = `\n${content}\n`;
           }
 
-          if (!shortcode.children && content.split('\n').length === 3) {
-            content = content.replace(/^\n/, '').replace(/\n$/, '');
-          }
-
-          let replacement = `${groups.opening}${content}${groups.closing}`;
-
-          if (shortcode.parent) {
-            replacement = replacement.split('\n').map((line) => (line ? `    ${line}` : '')).join('\n');
-          }
-
-          output = output.replace(hash, replacement);
+          output = output.replace(hash, `${groups.opening}${content}${groups.closing}`);
         }
 
         if (shortcode.type === 'inline') {
@@ -84,6 +74,15 @@ window.ckeditor5.addHook('hookHTMLtoMarkdown', {
         }
       });
     }
+
+    Object.values(window.ckeditor5.shortcodes).forEach((shortcode) => {
+      const regexp = `(?<opening>\\[${shortcode.realName}[^\\]]*\\])\n(?<content>(((?!(${openingRegexp}|(\\[\\/${shortcode.realName}\\]))).))*)\n(?<closing>\\[\\/${shortcode.realName}\\])`;
+
+      output = output.replace(new RegExp(regexp, 'g'), (...matches) => {
+        const groups = matches.pop();
+        return `${groups.opening}${groups.content}${groups.closing}`;
+      });
+    });
 
     return output;
   },

@@ -1,37 +1,12 @@
-window.ckeditor5.addShortcode('links-list', {
+window.ckeditor5.addShortcode('tabs', {
   type: 'block',
-  title: 'Links List',
+  title: 'Tabs',
   button: {
     group: 'adyen',
-    label: 'Links List',
+    label: 'Tabs',
   },
-  attributes: {
-    template: {
-      type: String,
-      title: 'Template',
-      widget: {
-        type: 'radios',
-        values: {
-          fingerposts: 'Fingerposts',
-          'next-steps': 'Next Steps',
-          'see-also': 'See Also',
-        },
-      },
-      default: {
-        value: 'fingerposts',
-        preserve: true,
-      },
-    },
-  },
-  titlebar({ writer, container, attributes }) {
-    writer.append(writer.createText('template: '), container);
-
-    const strong = writer.createElement('strong');
-    writer.append(writer.createText(attributes.template), strong);
-    writer.append(strong, container);
-  },
-  content({ writer, container, attributes }) {
-    const content = writer.createElement('div', { class: `sc-list sc-${attributes.template}` });
+  content({ writer, container }) {
+    const content = writer.createElement('div', { class: 'sc-tabs' });
     writer.append(content, container);
 
     const pEmpty = writer.createElement('p_empty');
@@ -39,13 +14,15 @@ window.ckeditor5.addShortcode('links-list', {
 
     return pEmpty;
   },
-  extra({ writer, container, editor, data }) {
+  extra(args) {
+    const { writer, container } = args;
+    writer.append(this.getAddButton(args), container);
+  },
+  getAddButton({ writer, editor, data }) {
     const addButton = writer.createElement('div', {
       class: 'add-button',
-      title: 'Add new link',
+      title: 'Add new tab',
     });
-
-    writer.append(addButton, container);
 
     const addButtonSvg = writer.createElement('svg', {
       viewBox: '0 0 24 24',
@@ -55,7 +32,7 @@ window.ckeditor5.addShortcode('links-list', {
         click() {
           editor.model.change((writer2) => {
             writer2.setSelection(data.modelShortcodeChildren, 'end');
-            editor.execute('shortcode_links-list_block');
+            editor.execute('shortcode_tabs_tab');
           });
         },
       },
@@ -68,111 +45,44 @@ window.ckeditor5.addShortcode('links-list', {
     });
 
     writer.append(addButtonPath, addButtonSvg);
+
+    return addButton;
   },
 });
 
-window.ckeditor5.addShortcode('block', {
+window.ckeditor5.addShortcode('tab', {
   type: 'block',
-  parent: 'links-list',
-  title: 'Links List Block',
+  parent: 'tabs',
+  title: 'Tab',
   attributes: {
-    url: {
-      type: String,
-      title: 'URL',
-      widget: 'input-text',
-      default: '',
-    },
     title: {
       type: String,
       title: 'Title',
-      widget: {
-        type: 'input-text',
-        visible: (attributes, parentAttributes) => parentAttributes.template === 'fingerposts' || parentAttributes.template === 'next-steps',
-      },
+      widget: 'input-text',
       default: '',
     },
-    required: {
-      type: Boolean,
-      title: 'Required',
-      widget: {
-        type: 'checkbox',
-        label: 'Yes',
-        visible: (attributes, parentAttributes) => parentAttributes.template === 'next-steps',
-      },
-      default: false,
-    },
-    external: {
-      type: Boolean,
-      title: 'External',
-      widget: {
-        type: 'checkbox',
-        label: 'Yes',
-        visible: (attributes, parentAttributes) => parentAttributes.template === 'fingerposts' || parentAttributes.template === 'next-steps',
-      },
-      default: false,
-    },
-    size: {
-      type: String,
-      title: 'Size',
-      widget: {
-        type: 'radios',
-        values: {
-          small: 'Small',
-          medium: 'Medium',
-          large: 'Large',
-        },
-        visible: (attributes, parentAttributes) => parentAttributes.template === 'fingerposts',
-      },
-      default: 'medium',
-    },
   },
-  content({ writer, container, attributes, parentAttributes }) {
-    if (parentAttributes.template === 'fingerposts') {
-      const link = writer.createElement('div', { class: `sc-link sc-size-${attributes.size}` });
-      writer.append(link, container);
+  titlebar({ writer, container, attributes }) {
+    writer.append(writer.createText('title: '), container);
 
-      if (attributes.title) {
-        const title = writer.createElement('div_readonly', { class: 'sc-title' });
-        writer.append(writer.createText(attributes.title), title);
-        writer.append(title, link);
-      }
+    const strong = writer.createElement('strong');
+    writer.append(writer.createText(attributes.title), strong);
+    writer.append(strong, container);
+  },
+  content({ writer, container, attributes }) {
+    const tab = writer.createElement('div', { class: 'sc-tab' });
+    writer.append(tab, container);
 
-      const body = writer.createElement('div', { class: 'sc-body' });
-      writer.append(body, link);
-
-      return body;
+    if (attributes.title) {
+      const title = writer.createElement('div_readonly', { class: 'sc-title' });
+      writer.append(writer.createText(attributes.title), title);
+      writer.append(title, tab);
     }
 
-    if (parentAttributes.template === 'next-steps') {
-      const link = writer.createElement('div', { class: 'sc-link' });
-      writer.append(link, container);
+    const body = writer.createElement('div', { class: 'sc-body' });
+    writer.append(body, tab);
 
-      if (attributes.required) {
-        const required = writer.createElement('div_readonly', { class: 'sc-required' });
-        writer.append(writer.createText('required'), required);
-        writer.append(required, link);
-      }
-
-      if (attributes.title) {
-        const title = writer.createElement('div_readonly', { class: 'sc-title' });
-        writer.append(writer.createText(attributes.title), title);
-        writer.append(title, link);
-      }
-
-      const body = writer.createElement('div', { class: 'sc-body' });
-      writer.append(body, link);
-
-      return body;
-    }
-
-    if (parentAttributes.template === 'see-also') {
-      const link = writer.createElement('div', { class: 'sc-body' });
-      writer.append(link, container);
-
-      return link;
-    }
-
-    return null;
+    return body;
   },
   extra(args) {
     const { writer, container } = args;
@@ -195,7 +105,7 @@ window.ckeditor5.addShortcode('block', {
         click() {
           editor.model.change((writer2) => {
             writer2.setSelection(data.modelShortcode, 'before');
-            editor.execute('shortcode_links-list_block');
+            editor.execute('shortcode_tabs_tab');
           });
         },
       },
