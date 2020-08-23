@@ -17,10 +17,10 @@ export function createModelShortcode(editor, shortcode, modelWriter, viewItem) {
   const attributes = Object.keys(shortcode.attributes).reduce((acc, attrName) => {
     const attribute = shortcode.attributes[attrName];
 
-    acc[attrName] = viewItem.getAttribute(attrName);
+    acc[attrName] = viewItem.getAttribute(attrName.toLowerCase());
 
     if (reservedAttributes.includes(attrName)) {
-      acc[attrName] = viewItem.getAttribute(`data-${attrName}`);
+      acc[attrName] = viewItem.getAttribute(`data-${attrName.toLowerCase()}`);
     }
 
     if (attribute.type === Boolean) {

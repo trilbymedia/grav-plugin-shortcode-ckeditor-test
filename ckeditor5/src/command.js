@@ -32,7 +32,7 @@ window.ckeditor5.addPlugin('GravShortcodeCoreCommand', {
                 ? `data-${attrName}`
                 : attrName;
 
-              viewItem.setAttribute(newAttrName, shortcode.attributes[attrName].default.value);
+              viewItem.setAttribute(newAttrName.toLowerCase(), shortcode.attributes[attrName].default.value);
             });
 
             if (shortcode.parent) {

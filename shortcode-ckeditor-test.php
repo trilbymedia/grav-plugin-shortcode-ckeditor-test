@@ -288,6 +288,10 @@ class ShortcodeCkeditorTestPlugin extends Plugin
         $plugins['css'][] = 'plugin://shortcode-ckeditor-test/adyen/shortcodes/tabs/tabs.css';
         $plugins['js'][] = 'plugin://shortcode-ckeditor-test/adyen/shortcodes/tabs/tabs.js';
 
+        // additional-info
+        $plugins['css'][] = 'plugin://shortcode-ckeditor-test/adyen/shortcodes/additional-info/additional-info.css';
+        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/adyen/shortcodes/additional-info/additional-info.js';
+
         $event['plugins']  = $plugins;
         return $event;
     }

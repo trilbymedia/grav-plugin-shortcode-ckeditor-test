@@ -1,0 +1,8 @@
+shortcode-additional-info > .sc-content > .sc-title {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+shortcode-additional-info > .sc-content > .sc-link {
+  color: #1c90fb;
+}

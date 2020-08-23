@@ -24,7 +24,7 @@ window.ckeditor5.addShortcode('fieldset', {
     const fieldset = writer.createElement('fieldset');
     writer.append(fieldset, container);
 
-    const legend = writer.createElement('legend');
+    const legend = writer.createElement('legend_readonly');
     writer.append(writer.createText(attributes.title), legend);
     writer.append(legend, fieldset);
 
