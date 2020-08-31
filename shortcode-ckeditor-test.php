@@ -278,6 +278,8 @@ class ShortcodeCkeditorTestPlugin extends Plugin
     }
 
     public function registerCKEditor5PluginShortcodesAdyen(&$plugins) {
+        $plugins['css'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/adyen/additional-info/additional-info.css';
+        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/adyen/additional-info/additional-info.js';
         $plugins['css'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/adyen/links-list/links-list.css';
         $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/adyen/links-list/links-list.js';
         $plugins['css'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/adyen/tabs/tabs.css';
