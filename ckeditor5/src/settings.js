@@ -5,7 +5,7 @@ export default {};
 
 const reUpcastShortcodeContent = (editor, modelShortcode) => {
   const { shortcodeData } = modelShortcode;
-  const { shortcode, modelContent, modelTitlebar, modelParentShortcode } = shortcodeData;
+  const { shortcode, modelContent, modelTitlebar, modelShortcodeChildren, modelParentShortcode } = shortcodeData;
 
   const attributes = Object.keys(shortcode.attributes).reduce((acc, curAttrName) => {
     acc[curAttrName] = modelShortcode.getAttribute(`sc-${curAttrName}`);
@@ -13,11 +13,18 @@ const reUpcastShortcodeContent = (editor, modelShortcode) => {
   }, {});
 
   const parentAttributes = shortcode.parent
-    ? Object.keys(modelParentShortcode.shortcodeData.shortcode.attributes).reduce((acc, attrName) => {
+    ? Object.keys(shortcode.parent.attributes).reduce((acc, attrName) => {
       acc[attrName] = modelParentShortcode.getAttribute(`sc-${attrName}`);
       return acc;
     }, {})
     : {};
+
+  const childAttributes = shortcode.child
+    ? [...modelShortcodeChildren.getChildren()].map((modelChild) => Object.keys(shortcode.child.attributes).reduce((acc, curAttrName) => {
+      acc[curAttrName] = modelChild.getAttribute(`sc-${curAttrName}`);
+      return acc;
+    }, {}))
+    : [];
 
   editor.model.change((modelWriter) => {
     const modelContentChildren = [...modelContent.getChildren()];
@@ -28,6 +35,7 @@ const reUpcastShortcodeContent = (editor, modelShortcode) => {
       data: shortcodeData,
       attributes,
       parentAttributes,
+      childAttributes,
     };
 
     if (shortcode.type === 'block') {
@@ -53,19 +61,19 @@ const reUpcastShortcodeContent = (editor, modelShortcode) => {
     shortcodeData.modelShortcodeChildren = newModelShortcodeChildren;
   });
 
-  if (shortcode.children) {
+  if (shortcode.child) {
     const children = [...shortcodeData.modelShortcodeChildren.getChildren()];
 
-    const subchildren = children.reduce((acc, childModel) => {
-      if (childModel.getChildren) {
-        return acc.concat([...childModel.getChildren()]);
+    const subchildren = children.reduce((acc, modelChild) => {
+      if (modelChild.getChildren) {
+        return acc.concat([...modelChild.getChildren()]);
       }
       return acc;
     }, []);
 
-    children.concat(subchildren).forEach((childModel) => {
-      if (childModel.isShortcode && childModel.shortcodeData.modelParentShortcode === modelShortcode) {
-        reUpcastShortcodeContent(editor, childModel);
+    children.concat(subchildren).forEach((modelChild) => {
+      if (modelChild.isShortcode && modelChild.shortcodeData.modelParentShortcode === modelShortcode) {
+        reUpcastShortcodeContent(editor, modelChild);
       }
     });
   }
@@ -95,19 +103,26 @@ const changeAttribute = (editor, modelShortcode, attrName, attrValue) => {
 
 export function displaySettings(editor, modelShortcode) {
   const { shortcodeData } = modelShortcode;
-  const { shortcode, domShortcode, modelParentShortcode } = shortcodeData;
+  const { shortcode, domShortcode, modelShortcodeChildren, modelParentShortcode } = shortcodeData;
 
-  const currentAttribures = Object.keys(shortcode.attributes).reduce((acc, attrName) => {
+  const currentAttributes = Object.keys(shortcode.attributes).reduce((acc, attrName) => {
     acc[attrName] = modelShortcode.getAttribute(`sc-${attrName}`);
     return acc;
   }, {});
 
-  const parentAttribures = shortcode.parent
-    ? Object.keys(modelParentShortcode.shortcodeData.shortcode.attributes).reduce((acc, attrName) => {
+  const parentAttributes = shortcode.parent
+    ? Object.keys(shortcode.parent.attributes).reduce((acc, attrName) => {
       acc[attrName] = modelParentShortcode.getAttribute(`sc-${attrName}`);
       return acc;
     }, {})
     : {};
+
+  const childAttributes = shortcode.child
+    ? [...modelShortcodeChildren.getChildren()].map((modelChild) => Object.keys(shortcode.child.attributes).reduce((acc, attrName) => {
+      acc[attrName] = modelChild.getAttribute(`sc-${attrName}`);
+      return acc;
+    }, {}))
+    : [];
 
   const domPopup = document.createElement('div');
   domPopup.classList.add('ck-shortcode-settings-popup');
@@ -128,7 +143,14 @@ export function displaySettings(editor, modelShortcode) {
       ? { type: attribute.widget }
       : attribute.widget;
 
-    if (widget.visible && !widget.visible(currentAttribures, parentAttribures)) {
+    const argsForWidget = {
+      attributes: currentAttributes,
+      parentAttributes,
+      childAttributes,
+      widget,
+    };
+
+    if (widget.visible && !widget.visible(argsForWidget)) {
       return;
     }
 
@@ -144,8 +166,13 @@ export function displaySettings(editor, modelShortcode) {
     if (widgets[widget.type]) {
       const attrValue = modelShortcode.getAttribute(`sc-${attrName}`);
 
-      widgets[widget.type].render(domAttribute, widget, attrValue, (newValue) => {
-        changeAttribute(editor, modelShortcode, attrName, newValue);
+      widgets[widget.type].render({
+        ...argsForWidget,
+        parent: domAttribute,
+        value: attrValue,
+        change: (newValue) => {
+          changeAttribute(editor, modelShortcode, attrName, newValue);
+        },
       });
     }
   });
@@ -213,9 +240,9 @@ export function displaySettings(editor, modelShortcode) {
   const cancelPopup = () => {
     document.body.removeChild(domPopup);
 
-    Object.keys(currentAttribures).forEach((attrName) => {
-      if (currentAttribures[attrName] !== modelShortcode.getAttribute(`sc-${attrName}`)) {
-        changeAttribute(editor, modelShortcode, attrName, currentAttribures[attrName]);
+    Object.keys(currentAttributes).forEach((attrName) => {
+      if (currentAttributes[attrName] !== modelShortcode.getAttribute(`sc-${attrName}`)) {
+        changeAttribute(editor, modelShortcode, attrName, currentAttributes[attrName]);
       }
     });
   };

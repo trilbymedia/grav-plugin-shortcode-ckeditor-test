@@ -1,37 +1,89 @@
-window.ckeditor5.addShortcode('links-list', {
+window.ckeditor5.addShortcode('ui-tabs', {
   type: 'block',
-  title: 'Links List',
+  title: 'UI Tabs',
   button: {
-    group: 'adyen',
-    label: 'Links List',
+    group: 'shortcode-ui',
+    label: 'UI Tabs',
   },
   attributes: {
-    template: {
+    theme: {
       type: String,
-      title: 'Template',
+      title: 'Theme',
       widget: {
         type: 'radios',
-        values: {
-          fingerposts: 'Fingerposts',
-          'next-steps': 'Next Steps',
-          'see-also': 'See Also',
-        },
+        values: [
+          { value: 'default', label: 'Default' },
+          { value: 'lite', label: 'Lite' },
+          { value: 'badges', label: 'Badges' },
+        ],
       },
-      default: {
-        value: 'fingerposts',
-        preserve: true,
+      default: 'default',
+    },
+    position: {
+      type: String,
+      title: 'Position',
+      widget: {
+        type: 'radios',
+        values: [
+          { value: 'top-left', label: 'Top Left' },
+          { value: 'top-right', label: 'Top Right' },
+          { value: 'bottom-left', label: 'Bottom Left' },
+          { value: 'bottom-right', label: 'Bottom Right' },
+        ],
       },
+      default: 'top-left',
+    },
+    active: {
+      type: Number,
+      title: 'Active Tab',
+      widget: {
+        type: 'radios',
+        values: ({ childAttributes }) => childAttributes.map((child, index) => ({
+          value: index,
+          label: child.title,
+        })),
+      },
+      default: 0,
     },
   },
-  titlebar({ writer, container, attributes }) {
-    writer.append(writer.createText('template: '), container);
+  titlebar({ writer, container, attributes, childAttributes }) {
+    const theme = attributes.theme
+      ? this.attributes.theme.widget.values.find((item) => item.value === attributes.theme)
+      : '';
 
-    const strong = writer.createElement('strong');
-    writer.append(writer.createText(attributes.template), strong);
-    writer.append(strong, container);
+    const position = attributes.position
+      ? this.attributes.position.widget.values.find((item) => item.value === attributes.position)
+      : '';
+
+    const active = childAttributes[attributes.active];
+
+    const themeBlock = writer.createElement('span', { class: 'sc-theme' });
+    const themeValue = writer.createElement('span', { class: 'sc-value' });
+    writer.appendText(theme ? theme.label : '', themeValue);
+    writer.appendText('theme: ', themeBlock);
+    writer.append(themeValue, themeBlock);
+    writer.append(themeBlock, container);
+
+    writer.appendText(', ', container);
+
+    const positionBlock = writer.createElement('span', { class: 'sc-position' });
+    const positionValue = writer.createElement('span', { class: 'sc-value' });
+    writer.appendText(position ? position.label : '', positionValue);
+    writer.appendText('position: ', positionBlock);
+    writer.append(positionValue, positionBlock);
+    writer.append(positionBlock, container);
+
+    writer.appendText(', ', container);
+
+    const activeBlock = writer.createElement('span', { class: 'sc-active' });
+    const activeValue = writer.createElement('span', { class: 'sc-value' });
+    writer.appendText(active ? active.title : '', activeValue);
+    writer.appendText('active: ', activeBlock);
+    writer.append(activeValue, activeBlock);
+    writer.append(activeBlock, container);
   },
-  content({ writer, container, attributes }) {
-    const content = writer.createElement('div', { class: `sc-links-list sc-${attributes.template}` });
+  content({ writer, container }) {
+    const content = writer.createElement('div', { class: 'sc-tabs' });
     writer.append(content, container);
 
     const pEmpty = writer.createElement('p_empty');
@@ -46,7 +98,7 @@ window.ckeditor5.addShortcode('links-list', {
   getAddButton({ writer, editor, data }) {
     const addButton = writer.createElement('div', {
       class: 'add-button',
-      title: 'Add new link',
+      title: 'Add new tab',
     });
 
     const addButtonSvg = writer.createElement('svg', {
@@ -57,7 +109,7 @@ window.ckeditor5.addShortcode('links-list', {
         click() {
           editor.model.change((writer2) => {
             writer2.setSelection(data.modelShortcodeChildren, 'end');
-            editor.execute('shortcode_links-list_block');
+            editor.execute('shortcode_ui-tabs_ui-tab');
           });
         },
       },
@@ -75,108 +127,39 @@ window.ckeditor5.addShortcode('links-list', {
   },
 });
 
-window.ckeditor5.addShortcode('block', {
+window.ckeditor5.addShortcode('ui-tab', {
   type: 'block',
-  parent: 'links-list',
-  title: 'Block',
+  parent: 'ui-tabs',
+  title: 'UI Tab',
   attributes: {
-    url: {
+    id: {
       type: String,
-      title: 'URL',
+      title: 'ID',
       widget: 'input-text',
       default: '',
     },
     title: {
       type: String,
       title: 'Title',
-      widget: {
-        type: 'input-text',
-        visible: (attributes, parentAttributes) => parentAttributes.template === 'fingerposts' || parentAttributes.template === 'next-steps',
-      },
+      widget: 'input-text',
       default: '',
     },
-    required: {
-      type: Boolean,
-      title: 'Required',
-      widget: {
-        type: 'checkbox',
-        label: 'Yes',
-        visible: (attributes, parentAttributes) => parentAttributes.template === 'next-steps',
-      },
-      default: false,
-    },
-    external: {
-      type: Boolean,
-      title: 'External',
-      widget: {
-        type: 'checkbox',
-        label: 'Yes',
-        visible: (attributes, parentAttributes) => parentAttributes.template === 'fingerposts' || parentAttributes.template === 'next-steps',
-      },
-      default: false,
-    },
-    size: {
-      type: String,
-      title: 'Size',
-      widget: {
-        type: 'radios',
-        values: {
-          small: 'Small',
-          medium: 'Medium',
-          large: 'Large',
-        },
-        visible: (attributes, parentAttributes) => parentAttributes.template === 'fingerposts',
-      },
-      default: 'medium',
-    },
   },
-  content({ writer, container, attributes, parentAttributes }) {
-    if (parentAttributes.template === 'fingerposts') {
-      const link = writer.createElement('div', { class: `sc-link sc-size-${attributes.size}` });
-      writer.append(link, container);
+  titlebar({ writer, container, attributes }) {
+    writer.append(writer.createText('title: '), container);
 
-      if (attributes.title) {
-        const title = writer.createElement('div_readonly', { class: 'sc-title' });
-        writer.append(writer.createText(attributes.title), title);
-        writer.append(title, link);
-      }
+    const strong = writer.createElement('strong');
+    writer.append(writer.createText(attributes.title), strong);
+    writer.append(strong, container);
+  },
+  content({ writer, container, attributes }) {
+    const tab = writer.createElement('div', { class: 'sc-tab' });
+    writer.append(tab, container);
 
-      const body = writer.createElement('div', { class: 'sc-body' });
-      writer.append(body, link);
+    const body = writer.createElement('div', { class: 'sc-body' });
+    writer.append(body, tab);
 
-      return body;
-    }
-
-    if (parentAttributes.template === 'next-steps') {
-      const link = writer.createElement('div', { class: 'sc-link' });
-      writer.append(link, container);
-
-      if (attributes.required) {
-        const required = writer.createElement('div_readonly', { class: 'sc-required' });
-        writer.append(writer.createText('required'), required);
-        writer.append(required, link);
-      }
-
-      if (attributes.title) {
-        const title = writer.createElement('div_readonly', { class: 'sc-title' });
-        writer.append(writer.createText(attributes.title), title);
-        writer.append(title, link);
-      }
-
-      const body = writer.createElement('div', { class: 'sc-body' });
-      writer.append(body, link);
-
-      return body;
-    }
-
-    if (parentAttributes.template === 'see-also') {
-      const link = writer.createElement('div', { class: 'sc-body' });
-      writer.append(link, container);
-
-      return link;
-    }
-
-    return null;
+    return body;
   },
   extra(args) {
     const { writer, container } = args;
@@ -199,7 +182,7 @@ window.ckeditor5.addShortcode('block', {
         click() {
           editor.model.change((writer2) => {
             writer2.setSelection(data.modelShortcode, 'before');
-            editor.execute('shortcode_links-list_block');
+            editor.execute('shortcode_ui-tabs_ui-tab');
           });
         },
       },

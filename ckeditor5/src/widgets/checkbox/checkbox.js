@@ -1,7 +1,9 @@
 import './checkbox.css';
 
 export default {
-  render(parent, widget, value, change) {
+  render(args) {
+    const { parent, widget, value, change } = args;
+
     const label = document.createElement('label');
     parent.appendChild(label);
 
@@ -17,7 +19,10 @@ export default {
     label.appendChild(input);
 
     const text = document.createElement('span');
-    text.innerHTML = widget.label;
+
+    text.innerHTML = typeof widget.label === 'function'
+      ? widget.label(args)
+      : widget.label;
 
     label.appendChild(text);
   },

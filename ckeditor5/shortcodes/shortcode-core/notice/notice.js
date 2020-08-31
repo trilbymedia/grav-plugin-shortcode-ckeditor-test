@@ -12,21 +12,24 @@ window.ckeditor5.addShortcode('notice', {
       bbcode: true,
       widget: {
         type: 'radios',
-        values: {
-          info: 'Info',
-          warning: 'Warning',
-          note: 'Note',
-          tip: 'Tip',
-        },
+        values: [
+          { value: 'info', label: 'Info' },
+          { value: 'warning', label: 'Warning' },
+          { value: 'note', label: 'Note' },
+          { value: 'tip', label: 'Tip' },
+        ],
       },
       default: 'info',
     },
   },
   titlebar({ writer, container, attributes }) {
-    writer.append(writer.createText('type: '), container);
+    const notice = attributes.notice
+      ? this.attributes.notice.widget.values.find((item) => item.value === attributes.notice)
+      : '';
 
+    writer.append(writer.createText('type: '), container);
     const strong = writer.createElement('strong');
-    writer.append(writer.createText(attributes.notice), strong);
+    writer.appendText(notice ? notice.label : '', strong);
     writer.append(strong, container);
   },
   content({ writer, container, attributes }) {

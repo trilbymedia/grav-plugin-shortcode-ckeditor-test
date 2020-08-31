@@ -25,7 +25,7 @@ window.ckeditor5.addPlugin('GravShortcodeCoreCommand', {
         execute() {
           this.editor.model.change((modelWriter) => {
             const { selection } = this.editor.model.document;
-            const viewItem = new DOMParser().parseFromString('<div/>', 'text/html').body.firstChild;
+            const viewItem = document.createElement('div');
 
             Object.keys(shortcode.attributes).forEach((attrName) => {
               const newAttrName = reservedAttributes.includes(attrName)
@@ -39,15 +39,14 @@ window.ckeditor5.addPlugin('GravShortcodeCoreCommand', {
               const firstPosition = selection.getFirstPosition();
 
               if (firstPosition.parent.isShortcodeChildren || (firstPosition.parent.parent && firstPosition.parent.parent.isShortcodeChildren)) {
-                const parentShortcodeData = firstPosition.parent.shortcodeData || (firstPosition.parent.parent && firstPosition.parent.parent.shortcodeData) || null;
+                const { modelShortcode } = firstPosition.parent.shortcodeData || firstPosition.parent.parent.shortcodeData;
+                const viewParent = document.createElement('div');
 
-                viewItem.parent = new DOMParser().parseFromString('<div/>', 'text/html').body.firstChild;
-                viewItem.parent.shortcodeParent = parentShortcodeData.modelShortcode;
+                Object.keys(shortcode.parent.attributes).forEach((attrName) => {
+                  viewParent.setAttribute(attrName, modelShortcode.getAttribute(`sc-${attrName}`));
+                });
 
-                viewItem.parent.shortcodeParentAttributes = Object.keys(parentShortcodeData.shortcode.attributes).reduce((acc, attrName) => {
-                  acc[attrName] = parentShortcodeData.modelShortcode.getAttribute(`sc-${attrName}`);
-                  return acc;
-                }, {});
+                viewParent.appendChild(viewItem);
               }
             }
 

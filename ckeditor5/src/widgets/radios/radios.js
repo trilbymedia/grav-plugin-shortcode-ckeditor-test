@@ -1,10 +1,15 @@
 import './radios.css';
 
 export default {
-  render(parent, widget, value, change) {
+  render(args) {
+    const { parent, widget, value, change } = args;
     const inputs = [];
 
-    Object.keys(widget.values).forEach((subValue) => {
+    const values = typeof widget.values === 'function'
+      ? widget.values(args)
+      : widget.values;
+
+    values.forEach((subValue) => {
       const line = document.createElement('div');
       line.classList.add('line');
 
@@ -13,9 +18,9 @@ export default {
       const input = document.createElement('input');
 
       input.type = 'radio';
-      input.value = subValue;
+      input.value = subValue.value;
 
-      if (value === subValue) {
+      if (value === subValue.value) {
         input.checked = true;
       }
 
@@ -24,14 +29,14 @@ export default {
           subInput.checked = input === subInput;
         });
 
-        change(subValue);
+        change(subValue.value);
       });
 
       inputs.push(input);
       line.appendChild(input);
 
       const label = document.createElement('span');
-      label.innerHTML = widget.values[subValue];
+      label.innerHTML = subValue.label;
 
       line.appendChild(label);
     });

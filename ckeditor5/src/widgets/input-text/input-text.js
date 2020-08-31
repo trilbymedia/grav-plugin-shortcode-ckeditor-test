@@ -1,7 +1,9 @@
 import './input-text.css';
 
 export default {
-  render(parent, widget, value, change) {
+  render(args) {
+    const { parent, value, change } = args;
+
     const input = document.createElement('input');
 
     input.type = 'text';

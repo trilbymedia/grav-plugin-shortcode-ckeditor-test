@@ -29,7 +29,6 @@ class ShortcodeCkeditorTestPlugin extends Plugin
             'registerCKEditor5Plugin' => [
                 ['registerCKEditor5Plugin', 0],
                 ['registerCKEditor5PluginShortcodes', 0],
-                ['registerCKEditor5PluginAdyen', 0],
             ]
         ];
     }
@@ -252,43 +251,36 @@ class ShortcodeCkeditorTestPlugin extends Plugin
     public function registerCKEditor5PluginShortcodes($event) {
         $plugins = $event['plugins'];
 
-        // color
-        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/color/color.js';
+        $this->registerCKEditor5PluginShortcodesCore($plugins);
+        $this->registerCKEditor5PluginShortcodesUI($plugins);
 
-        // div
-        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/div/div.js';
-
-        // fieldset
-        $plugins['css'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/fieldset/fieldset.css';
-        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/fieldset/fieldset.js';
-
-        // lorem
-        $plugins['css'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/lorem/lorem.css';
-        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/lorem/lorem.js';
-
-        // notice
-        $plugins['css'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/notice/notice.css';
-        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/notice/notice.js';
-
-        // underline
-        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/u/u.js';
+        $this->registerCKEditor5PluginShortcodesAdyen($plugins);
 
         $event['plugins']  = $plugins;
         return $event;
     }
 
-    public function registerCKEditor5PluginAdyen($event) {
-        $plugins = $event['plugins'];
+    public static function registerCKEditor5PluginShortcodesCore(&$plugins) {
+        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-core/color/color.js';
+        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-core/div/div.js';
+        $plugins['css'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-core/fieldset/fieldset.css';
+        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-core/fieldset/fieldset.js';
+        $plugins['css'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-core/lorem/lorem.css';
+        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-core/lorem/lorem.js';
+        $plugins['css'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-core/notice/notice.css';
+        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-core/notice/notice.js';
+        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-core/u/u.js';
+    }
 
-        // links-list
-        $plugins['css'][] = 'plugin://shortcode-ckeditor-test/adyen/shortcodes/links-list/links-list.css';
-        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/adyen/shortcodes/links-list/links-list.js';
+    public function registerCKEditor5PluginShortcodesUI(&$plugins) {
+        $plugins['css'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-ui/ui-tabs/ui-tabs.css';
+        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-ui/ui-tabs/ui-tabs.js';
+    }
 
-        // tabs
-        $plugins['css'][] = 'plugin://shortcode-ckeditor-test/adyen/shortcodes/tabs/tabs.css';
-        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/adyen/shortcodes/tabs/tabs.js';
-
-        $event['plugins']  = $plugins;
-        return $event;
+    public function registerCKEditor5PluginShortcodesAdyen(&$plugins) {
+        $plugins['css'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/adyen/links-list/links-list.css';
+        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/adyen/links-list/links-list.js';
+        $plugins['css'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/adyen/tabs/tabs.css';
+        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/adyen/tabs/tabs.js';
     }
 }

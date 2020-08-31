@@ -39,9 +39,27 @@ export function createModelShortcode(editor, shortcode, modelWriter, viewItem) {
     return acc;
   }, {});
 
-  const parentAttributes = shortcode.parent
-    ? (viewItem.parent && viewItem.parent.shortcodeParentAttributes) || (viewItem.parent && viewItem.parent.parent && viewItem.parent.parent.shortcodeParentAttributes) || {}
-    : {};
+  let parentAttributes = {};
+
+  if (shortcode.parent) {
+    const viewParent = viewItem.parent
+      ? viewItem.parent.name === 'paragraph'
+        ? viewItem.parent.parent
+        : viewItem.parent
+      : viewItem.parentNode;
+
+    parentAttributes = Object.keys(shortcode.parent.attributes).reduce((acc, attrName) => {
+      acc[attrName] = viewParent.getAttribute(attrName);
+      return acc;
+    }, {});
+  }
+
+  const childAttributes = shortcode.child
+    ? [...(viewItem.getChildren ? viewItem.getChildren() : viewItem.children)].map((viewChild) => Object.keys(shortcode.child.attributes).reduce((acc, attrName) => {
+      acc[attrName] = viewChild.getAttribute(attrName);
+      return acc;
+    }, {}))
+    : [];
 
   const modelShortcode = modelWriter.createElement(`shortcode-${shortcode.name}`, prefixedAttributes);
   modelShortcode.shortcodeData = shortcodeData;
@@ -49,21 +67,13 @@ export function createModelShortcode(editor, shortcode, modelWriter, viewItem) {
 
   shortcodeData.modelShortcode = modelShortcode;
 
-  if (shortcode.children) {
-    viewItem.shortcodeParentAttributes = attributes;
-    viewItem.shortcodeParent = modelShortcode;
-  }
-
-  shortcodeData.modelParentShortcode = shortcode.parent
-    ? (viewItem.parent && viewItem.parent.shortcodeParent) || (viewItem.parent && viewItem.parent.parent && viewItem.parent.parent.shortcodeParent) || null
-    : null;
-
   const argsForRender = {
     editor,
     writer: modelWriter,
     data: shortcodeData,
     attributes,
     parentAttributes,
+    childAttributes,
   };
 
   let modelContent = null;
@@ -212,6 +222,16 @@ window.ckeditor5.addPlugin('GravShortcodeCoreConverters', {
 
         if (!consumable.consume(data.item, 'insert')) {
           return;
+        }
+
+        if (shortcode.parent) {
+          let modelParentShortcode = data.item.parent;
+
+          while (modelParentShortcode && (!modelParentShortcode.isShortcode || modelParentShortcode.shortcodeData.shortcode !== shortcode.parent)) {
+            modelParentShortcode = modelParentShortcode.parent;
+          }
+
+          shortcodeData.modelParentShortcode = modelParentShortcode;
         }
 
         const targetViewPosition = mapper.toViewPosition(this.editor.model.createPositionBefore(data.item));

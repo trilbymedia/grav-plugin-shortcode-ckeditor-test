@@ -41,15 +41,15 @@ window.ckeditor5.addHook('hookMarkdowntoHTML', {
           const hash = Math.random().toString(36).slice(2);
           hashMap[hash] = { shortcode, matches };
 
-          if (shortcode.children) {
-            shortcode.children.forEach((childName) => {
-              Object.keys(hashMap).forEach((childHash) => {
-                const childShortcode = hashMap[childHash].shortcode;
+          if (shortcode.child) {
+            const childName = shortcode.child.realName;
 
-                if (childShortcode.realName === childName && childShortcode.name !== `${shortcode.realName}_${childName}` && matches[0].includes(childHash)) {
-                  hashMap[childHash].shortcode = window.ckeditor5.shortcodes[`${shortcode.realName}_${childName}`];
-                }
-              });
+            Object.keys(hashMap).forEach((childHash) => {
+              const childShortcode = hashMap[childHash].shortcode;
+
+              if (childShortcode === shortcode.child && childShortcode.name !== `${shortcode.realName}_${childName}` && matches[0].includes(childHash)) {
+                hashMap[childHash].shortcode = window.ckeditor5.shortcodes[`${shortcode.realName}_${childName}`];
+              }
             });
           }
 
