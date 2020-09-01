@@ -17,7 +17,7 @@ window.ckeditor5.addShortcode('fieldset', {
     writer.append(writer.createText('title: '), container);
 
     const strong = writer.createElement('strong');
-    writer.append(writer.createText(attributes.title), strong);
+    writer.appendText(attributes.title, strong);
     writer.append(strong, container);
   },
   content({ writer, container, attributes }) {
@@ -25,7 +25,7 @@ window.ckeditor5.addShortcode('fieldset', {
     writer.append(fieldset, container);
 
     const legend = writer.createElement('legend_readonly');
-    writer.append(writer.createText(attributes.title), legend);
+    writer.appendText(attributes.title, legend);
     writer.append(legend, fieldset);
 
     const content = writer.createElement('div');
@@ -36,7 +36,7 @@ window.ckeditor5.addShortcode('fieldset', {
   preserve: {
     block: [
       'fieldset',
-      'legend',
+      'legend_readonly',
     ],
   },
 });

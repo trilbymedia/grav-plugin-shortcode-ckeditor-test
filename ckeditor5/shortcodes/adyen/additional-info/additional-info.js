@@ -25,7 +25,7 @@ window.ckeditor5.addShortcode('additional-info', {
       default: '',
     },
     linkExternal: {
-      type: String,
+      type: Number,
       title: 'Link External',
       widget: {
         type: 'input-number',
