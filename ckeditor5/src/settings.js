@@ -7,8 +7,8 @@ const reUpcastShortcodeContent = (editor, modelShortcode) => {
   const { shortcodeData } = modelShortcode;
   const { shortcode, modelContent, modelTitlebar, modelShortcodeChildren, modelParentShortcode } = shortcodeData;
 
-  const attributes = Object.keys(shortcode.attributes).reduce((acc, curAttrName) => {
-    acc[curAttrName] = modelShortcode.getAttribute(`sc-${curAttrName}`);
+  const attributes = Object.keys(shortcode.attributes).reduce((acc, attrName) => {
+    acc[attrName] = modelShortcode.getAttribute(`sc-${attrName}`);
     return acc;
   }, {});
 
@@ -20,8 +20,8 @@ const reUpcastShortcodeContent = (editor, modelShortcode) => {
     : {};
 
   const childAttributes = shortcode.child
-    ? [...modelShortcodeChildren.getChildren()].map((modelChild) => Object.keys(shortcode.child.attributes).reduce((acc, curAttrName) => {
-      acc[curAttrName] = modelChild.getAttribute(`sc-${curAttrName}`);
+    ? [...modelShortcodeChildren.getChildren()].map((modelChild) => Object.keys(shortcode.child.attributes).reduce((acc, attrName) => {
+      acc[attrName] = modelChild.getAttribute(`sc-${attrName}`);
       return acc;
     }, {}))
     : [];
@@ -50,7 +50,7 @@ const reUpcastShortcodeContent = (editor, modelShortcode) => {
     newModelShortcodeChildren.shortcodeData = shortcodeData;
     newModelShortcodeChildren.isShortcodeChildren = true;
 
-    [...shortcodeData.modelShortcodeChildren.getChildren()].forEach((modelChild) => {
+    [...modelShortcodeChildren.getChildren()].forEach((modelChild) => {
       modelWriter.append(modelChild, newModelShortcodeChildren);
     });
 
@@ -59,6 +59,31 @@ const reUpcastShortcodeContent = (editor, modelShortcode) => {
     });
 
     shortcodeData.modelShortcodeChildren = newModelShortcodeChildren;
+
+    if (shortcode.parent) {
+      const { shortcodeData: shortcodeDataParent } = modelParentShortcode;
+      const { shortcode: shortcodeParent, modelTitlebar: modelTitlebarParent, modelShortcodeChildren: modelShortcodeChildrenParent } = shortcodeDataParent;
+
+      if (shortcodeParent.type === 'block') {
+        [...modelTitlebarParent.getChildren()].forEach((modelChild) => {
+          modelWriter.remove(modelChild);
+        });
+
+        const argsForRenderParent = {
+          editor,
+          writer: modelWriter,
+          data: shortcodeDataParent,
+          attributes: parentAttributes,
+          parentAttributes: {},
+          childAttributes: [...modelShortcodeChildrenParent.getChildren()].map((modelChild) => Object.keys(shortcode.attributes).reduce((acc, attrName) => {
+            acc[attrName] = modelChild.getAttribute(`sc-${attrName}`);
+            return acc;
+          }, {})),
+        };
+
+        shortcodeParent.titlebar({ ...argsForRenderParent, container: modelTitlebarParent });
+      }
+    }
   });
 
   if (shortcode.child) {
