@@ -11,7 +11,7 @@ window.ckeditor5.addHook('hookMarkdowntoHTML', {
 
       // eslint-disable-next-line no-loop-func
       Object.values(window.ckeditor5.shortcodes).forEach((shortcode) => {
-        const regexp = `(?<p1><p>)?\\[${shortcode.name}(?<attributes>(=| )[^\\]]*)?\\](<\\/p>)?(?<content>(((?!(${openingRegexp}|(\\[\\/${shortcode.name}\\]))).)|\\n)*)\\[\\/${shortcode.name}\\](?<p2><\\/p>)?`;
+        const regexp = `(?<p1><p>)?\\[${shortcode.name}(?<attributes>(=| +)[^\\]]*)?\\](<\\/p>)?(?<content>(((?!(${openingRegexp}|(\\[\\/${shortcode.name}\\]))).)|\\n)*)\\[\\/${shortcode.name}\\](?<p2><\\/p>)?`;
 
         output = output.replace(new RegExp(regexp, 'g'), (...matches) => {
           shortcodeCounter += 1;

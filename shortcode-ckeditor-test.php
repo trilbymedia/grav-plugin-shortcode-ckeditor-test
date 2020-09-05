@@ -261,18 +261,35 @@ class ShortcodeCkeditorTestPlugin extends Plugin
     }
 
     public static function registerCKEditor5PluginShortcodesCore(&$plugins) {
+        $plugins['css'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-core/align/align.css';
+        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-core/align/align.js';
         $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-core/color/color.js';
+        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-core/columns/columns.js';
+        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-core/details/details.js';
         $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-core/div/div.js';
-        $plugins['css'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-core/fieldset/fieldset.css';
-        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-core/fieldset/fieldset.js';
+        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-core/figure/figure.js';
+        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-core/fontawesome/fontawesome.js';
+        $plugins['css'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-core/headers/headers.css';
+        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-core/headers/headers.js';
+        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-core/language/language.js';
         $plugins['css'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-core/lorem/lorem.css';
         $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-core/lorem/lorem.js';
+        $plugins['css'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-core/mark/mark.css';
+        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-core/mark/mark.js';
         $plugins['css'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-core/notice/notice.css';
         $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-core/notice/notice.js';
+        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-core/raw/raw.js';
+        $plugins['css'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-core/safe-email/safe-email.css';
+        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-core/safe-email/safe-email.js';
+        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-core/section/section.js';
+        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-core/size/size.js';
+        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-core/span/span.js';
         $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-core/u/u.js';
     }
 
     public function registerCKEditor5PluginShortcodesUI(&$plugins) {
+        $plugins['css'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-ui/ui-accordion/ui-accordion.css';
+        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-ui/ui-accordion/ui-accordion.js';
         $plugins['css'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-ui/ui-tabs/ui-tabs.css';
         $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-ui/ui-tabs/ui-tabs.js';
     }

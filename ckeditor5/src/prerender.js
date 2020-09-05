@@ -12,7 +12,7 @@ window.ckeditor5.addHook('hookMarkdowntoHTML', {
       .map((name) => `(\\[${name}[^\\]]*\\])`).join('|');
 
     realNames.forEach((name) => {
-      const regexp = `\\[${name}(?<attributes>(=| )[^/]*)?\\/\\]`;
+      const regexp = `\\[${name}(?<attributes>(=| +)[^/]*)?\\/\\]`;
 
       output = output.replace(new RegExp(regexp, 'g'), (...matches) => {
         const groups = matches.pop();
@@ -33,7 +33,7 @@ window.ckeditor5.addHook('hookMarkdowntoHTML', {
 
       // eslint-disable-next-line no-loop-func
       Object.values(window.ckeditor5.shortcodes).forEach((shortcode) => {
-        const regexp = `(?<spaces_before> *)\\[${shortcode.realName}(?<attributes>(=| )[^\\]]*)?\\](?<content>(((?!(${openingRegexp}|(\\[\\/${shortcode.realName}\\]))).)|\\n)*)\\[\\/${shortcode.realName}\\](?<spaces_after> *)`;
+        const regexp = `(?<spaces_before> *)\\[${shortcode.realName}(?<attributes>(=| +)[^\\]]*)?\\](?<content>(((?!(${openingRegexp}|(\\[\\/${shortcode.realName}\\]))).)|\\n)*)\\[\\/${shortcode.realName}\\](?<spaces_after> *)`;
 
         output = output.replace(new RegExp(regexp, 'g'), (...matches) => {
           shortcodeCounter += 1;
@@ -74,16 +74,18 @@ window.ckeditor5.addHook('hookMarkdowntoHTML', {
         const { shortcode, matches } = hashMap[hash];
         const groups = matches.pop();
 
-        const domAttributes = new DOMParser().parseFromString(`<div ${groups.attributes}></div>`, 'text/html').body.firstChild.attributes;
+        const bbcode = Object.keys(shortcode.attributes).reduce((acc, attrName) => acc || (shortcode.attributes[attrName].bbcode && attrName), '');
+
+        const attributes = groups.attributes && groups.attributes.startsWith('=')
+          ? `${bbcode}${groups.attributes}`
+          : groups.attributes || '';
+
+        const domAttributes = new DOMParser().parseFromString(`<div ${attributes}></div>`, 'text/html').body.firstChild.attributes;
 
         const attrLine = Object.keys(shortcode.attributes).reduce((acc, attrName) => {
           const attribute = shortcode.attributes[attrName];
 
           let attrValue = (domAttributes.getNamedItem(attrName) && domAttributes.getNamedItem(attrName).value) || undefined;
-
-          if (attribute.bbcode && domAttributes.getNamedItem(attrName) === null && domAttributes.item(0) !== null && domAttributes.item(0).name.startsWith('=')) {
-            attrValue = domAttributes.item(0).name.slice(1).replace(/^'|"/, '').replace(/'|"$/, '');
-          }
 
           if (attribute.type === Boolean && domAttributes.getNamedItem(attrName)) {
             attrValue = attrValue !== 'false';

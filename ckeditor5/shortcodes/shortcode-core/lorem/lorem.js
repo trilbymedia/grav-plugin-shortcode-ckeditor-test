@@ -42,23 +42,17 @@ window.ckeditor5.addShortcode('lorem', {
   },
   titlebar({ writer, container, attributes }) {
     if (attributes.w) {
-      writer.append(writer.createText('words: '), container);
-
-      const strong = writer.createElement('strong');
-      writer.append(writer.createText(`${attributes.w}`), strong);
-      writer.append(strong, container);
+      writer.appendText('words: ', container);
+      writer.append(writer.createElement('strong'), container);
+      writer.appendText(`${attributes.w}`, [...container.getChildren()].pop());
     } else if (attributes.s) {
-      writer.append(writer.createText('sentences: '), container);
-
-      const strong = writer.createElement('strong');
-      writer.append(writer.createText(`${attributes.s}`), strong);
-      writer.append(strong, container);
+      writer.appendText('sentences: ', container);
+      writer.append(writer.createElement('strong'), container);
+      writer.appendText(`${attributes.s}`, [...container.getChildren()].pop());
     } else {
-      writer.append(writer.createText('paragraphs: '), container);
-
-      const strong = writer.createElement('strong');
-      writer.append(writer.createText(`${attributes.p}`), strong);
-      writer.append(strong, container);
+      writer.appendText('paragraphs: ', container);
+      writer.append(writer.createElement('strong'), container);
+      writer.appendText(`${attributes.p}`, [...container.getChildren()].pop());
     }
   },
   content({ writer, container, attributes }) {
@@ -72,14 +66,14 @@ window.ckeditor5.addShortcode('lorem', {
 
     if (attributes.w) {
       const text = words.slice(0, attributes.w).join(' ');
-      writer.append(writer.createText(text), content);
+      writer.appendText(text, content);
     } else if (attributes.s) {
       const text = Array(attributes.s).fill(sentence).join(' ');
-      writer.append(writer.createText(text), content);
+      writer.appendText(text, content);
     } else {
       [...Array(attributes.p)].forEach(() => {
         const p = writer.createElement('paragraph');
-        writer.append(writer.createText(paragraph), p);
+        writer.appendText(paragraph, p);
         writer.append(p, content);
       });
     }

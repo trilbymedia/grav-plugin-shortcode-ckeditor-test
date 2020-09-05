@@ -6,7 +6,7 @@ export default {};
 
 const reUpcastShortcodeContent = (editor, modelShortcode) => {
   const { shortcodeData } = modelShortcode;
-  const { shortcode, modelContent, modelTitlebar, modelShortcodeChildren, modelParentShortcode } = shortcodeData;
+  const { shortcode, modelContent, modelTitlebar, modelShortcodeChildren, modelParentShortcode, viewShortcodeChildren } = shortcodeData;
 
   const attributes = Object.keys(shortcode.attributes).reduce((acc, attrName) => {
     acc[attrName] = modelShortcode.getAttribute(`sc-${attrName}`);
@@ -34,6 +34,7 @@ const reUpcastShortcodeContent = (editor, modelShortcode) => {
       editor,
       writer: modelWriter,
       data: shortcodeData,
+      children: [...viewShortcodeChildren.getChildren()],
       attributes,
       parentAttributes,
       childAttributes,

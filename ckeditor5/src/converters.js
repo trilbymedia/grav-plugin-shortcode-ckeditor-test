@@ -54,8 +54,13 @@ export function createModelShortcode(editor, shortcode, modelWriter, viewItem) {
     }, {});
   }
 
+  const viewChildren = [...(viewItem.getChildren
+    ? viewItem.getChildren()
+    : viewItem.children
+  )];
+
   const childAttributes = shortcode.child
-    ? [...(viewItem.getChildren ? viewItem.getChildren() : viewItem.children)].map((viewChild) => Object.keys(shortcode.child.attributes).reduce((acc, attrName) => {
+    ? viewChildren.map((viewChild) => Object.keys(shortcode.child.attributes).reduce((acc, attrName) => {
       acc[attrName] = viewChild.getAttribute(attrName);
       return acc;
     }, {}))
@@ -71,6 +76,7 @@ export function createModelShortcode(editor, shortcode, modelWriter, viewItem) {
     editor,
     writer: modelWriter,
     data: shortcodeData,
+    children: viewChildren,
     attributes,
     parentAttributes,
     childAttributes,

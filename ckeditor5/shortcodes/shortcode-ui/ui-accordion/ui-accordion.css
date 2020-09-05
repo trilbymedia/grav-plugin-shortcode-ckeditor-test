@@ -1,0 +1,83 @@
+shortcode-ui-accordion > .sc-extra > .add-button {
+  background: #fff;
+  border: 1px solid #000;
+  border-radius: 50%;
+  bottom: 5px;
+  color: red;
+  cursor: pointer;
+  height: 20px;
+  position: absolute;
+  right: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+}
+
+shortcode-ui-accordion > .sc-header > .sc-titlebar .sc-value {
+  font-weight: 700;
+}
+
+shortcode-ui-accordion_ui-accordion-item {
+  margin: 26px 0!important;
+  position: relative;
+}
+
+shortcode-ui-accordion_ui-accordion-item > .sc-content > .sc-accordion-item > .sc-title {
+  font-weight: 700;
+}
+
+shortcode-ui-accordion_ui-accordion-item > .sc-extra > .add-button {
+  background: #fff;
+  border: 1px solid #000;
+  border-radius: 50%;
+  color: red;
+  cursor: pointer;
+  height: 20px;
+  position: absolute;
+  right: 50%;
+  top: -24px;
+  transform: translateX(-50%);
+  width: 20px;
+}
+
+shortcode-ui-accordion_ui-accordion-item > .sc-extra > .up-button {
+  background: #fff;
+  border: 1px solid #000;
+  border-radius: 50%;
+  color: red;
+  cursor: pointer;
+  height: 20px;
+  position: absolute;
+  right: 40px;
+  top: -10px;
+  width: 20px;
+}
+
+shortcode-ui-accordion_ui-accordion-item:first-child > .sc-extra > .up-button {
+  display: none;
+}
+
+shortcode-ui-accordion_ui-accordion-item > .sc-extra > .up-button > svg {
+  margin: -4px 0 0 -4px;
+  transform: rotate(180deg);
+}
+
+shortcode-ui-accordion_ui-accordion-item > .sc-extra > .down-button {
+  background: #fff;
+  border: 1px solid #000;
+  border-radius: 50%;
+  bottom: -10px;
+  color: red;
+  cursor: pointer;
+  height: 20px;
+  position: absolute;
+  right: 40px;
+  width: 20px;
+}
+
+shortcode-ui-accordion_ui-accordion-item:last-child > .sc-extra > .down-button {
+  display: none;
+}
+
+shortcode-ui-accordion_ui-accordion-item > .sc-extra > .down-button > svg {
+  margin: 0 -4px -4px 0px;
+}

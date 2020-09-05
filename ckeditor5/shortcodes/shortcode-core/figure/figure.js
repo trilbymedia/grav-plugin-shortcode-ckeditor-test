@@ -1,9 +1,9 @@
-window.ckeditor5.addShortcode('div', {
+window.ckeditor5.addShortcode('figure', {
   type: 'block',
-  title: 'Div',
+  title: 'Figure',
   button: {
     group: 'shortcode-core',
-    label: 'Div',
+    label: 'Figure',
   },
   attributes: {
     id: {
@@ -18,9 +18,9 @@ window.ckeditor5.addShortcode('div', {
       widget: 'input-text',
       default: '',
     },
-    style: {
+    caption: {
       type: String,
-      title: 'Style',
+      title: 'Caption',
       widget: 'input-text',
       default: '',
     },
@@ -40,25 +40,35 @@ window.ckeditor5.addShortcode('div', {
       writer.append(writer.createElement('strong'), container);
       writer.appendText(attributes.class, [...container.getChildren()].pop());
     }
-
-    if (attributes.style) {
-      if (attributes.id || attributes.class) {
-        writer.appendText(', ', container);
-      }
-      writer.appendText('style: ', container);
-      writer.append(writer.createElement('strong'), container);
-      writer.appendText(attributes.style, [...container.getChildren()].pop());
-    }
   },
-  content({ writer, container, attributes }) {
-    const div = writer.createElement('div', {
+  content({ editor, writer, container, attributes }) {
+    const wrapper = writer.createElement('div', {
       id: attributes.id,
       class: attributes.class,
-      style: attributes.style,
     });
 
-    writer.append(div, container);
+    writer.append(wrapper, container);
 
-    return div;
+    const content = writer.createElement('div');
+    writer.append(content, wrapper);
+
+    if (attributes.caption) {
+      const caption = writer.createElement('div_readonly');
+      writer.appendText(attributes.caption, caption);
+      writer.append(caption, wrapper);
+
+      /*
+      setTimeout(() => {
+        const view = editor.data.processor.toView(attributes.caption);
+        const model = editor.data.toModel(view, 'paragraph');
+        
+        editor.model.change((writer) => {
+          writer.append(model, caption);
+        });
+      });
+      */
+    }
+
+    return content;
   },
 });

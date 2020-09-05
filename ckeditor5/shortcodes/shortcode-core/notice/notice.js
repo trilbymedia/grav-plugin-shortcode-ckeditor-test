@@ -27,10 +27,9 @@ window.ckeditor5.addShortcode('notice', {
       ? this.attributes.notice.widget.values.find((item) => item.value === attributes.notice)
       : '';
 
-    writer.append(writer.createText('type: '), container);
-    const strong = writer.createElement('strong');
-    writer.appendText(notice ? notice.label : '', strong);
-    writer.append(strong, container);
+    writer.appendText('type: ', container);
+    writer.append(writer.createElement('strong'), container);
+    writer.appendText(notice ? notice.label : '', [...container.getChildren()].pop());
   },
   content({ writer, container, attributes }) {
     const div = writer.createElement('div', { class: `sc-notice sc-${attributes.notice}` });
