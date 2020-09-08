@@ -1,3 +1,4 @@
+import './adyen';
 import './command';
 import './converters';
 import './init';
