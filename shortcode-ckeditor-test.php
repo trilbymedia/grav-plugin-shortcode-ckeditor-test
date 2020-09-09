@@ -261,6 +261,7 @@ class ShortcodeCkeditorTestPlugin extends Plugin
     }
 
     public static function registerCKEditor5PluginShortcodesCore(&$plugins) {
+        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-core/shortcode-core.js';
         $plugins['css'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-core/align/align.css';
         $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-core/align/align.js';
         $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-core/color/color.js';
@@ -288,6 +289,7 @@ class ShortcodeCkeditorTestPlugin extends Plugin
     }
 
     public function registerCKEditor5PluginShortcodesUI(&$plugins) {
+        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-ui/shortcode-ui.js';
         $plugins['css'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-ui/ui-accordion/ui-accordion.css';
         $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-ui/ui-accordion/ui-accordion.js';
         $plugins['css'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/shortcode-ui/ui-tabs/ui-tabs.css';
@@ -295,6 +297,7 @@ class ShortcodeCkeditorTestPlugin extends Plugin
     }
 
     public function registerCKEditor5PluginShortcodesAdyen(&$plugins) {
+        $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/adyen/adyen.js';
         $plugins['css'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/adyen/additional-info/additional-info.css';
         $plugins['js'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/adyen/additional-info/additional-info.js';
         $plugins['css'][] = 'plugin://shortcode-ckeditor-test/ckeditor5/shortcodes/adyen/links-list/links-list.css';

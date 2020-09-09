@@ -14,18 +14,19 @@ window.ckeditor5.addShortcode('safe-email', {
       default: 'grav',
     },
     autolink: {
-      type: Boolean,
+      type: String,
       title: 'Autolink',
       widget: {
         type: 'checkbox',
+        valueType: String,
         label: 'Yes',
       },
-      default: false,
+      default: 'false',
     },
   },
   content({ writer, container, children, attributes }) {
-    const wrapper = attributes.autolink
-      ? writer.createElement('a', { href: `mailto:example@gmail.com` })
+    const wrapper = attributes.autolink === 'true'
+      ? writer.createElement('a_reserved', { href: `mailto:example@gmail.com` })
       : writer.createElement('span');
 
     writer.append(wrapper, container);
