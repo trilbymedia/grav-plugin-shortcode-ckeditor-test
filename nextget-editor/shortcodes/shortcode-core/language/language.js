@@ -1,5 +1,6 @@
 window.nextgenEditor.addShortcode('lang', {
   type: 'inline',
+  plugin: 'shortcode-core',
   title: 'Language',
   button: {
     group: 'shortcode-core',

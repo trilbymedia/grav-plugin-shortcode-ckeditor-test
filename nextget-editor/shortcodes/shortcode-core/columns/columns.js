@@ -1,5 +1,6 @@
 window.nextgenEditor.addShortcode('columns', {
   type: 'block',
+  plugin: 'shortcode-core',
   title: 'Columns',
   button: {
     group: 'shortcode-core',

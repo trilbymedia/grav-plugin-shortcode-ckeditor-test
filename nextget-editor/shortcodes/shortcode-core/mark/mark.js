@@ -1,5 +1,6 @@
 window.nextgenEditor.addShortcode('mark', {
   type: 'inline',
+  plugin: 'shortcode-core',
   title: 'Mark',
   button: {
     group: 'shortcode-core',

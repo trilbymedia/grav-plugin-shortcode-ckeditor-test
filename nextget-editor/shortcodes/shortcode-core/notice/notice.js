@@ -1,5 +1,6 @@
 window.nextgenEditor.addShortcode('notice', {
   type: 'block',
+  plugin: 'shortcode-core',
   title: 'Notice',
   button: {
     group: 'shortcode-core',

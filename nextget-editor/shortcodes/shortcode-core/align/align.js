@@ -6,6 +6,7 @@ window.nextgenEditor.addHook('hookInit', () => {
 
 window.nextgenEditor.addShortcode('left', {
   type: 'block',
+  plugin: 'shortcode-core',
   title: 'Left',
   button: {
     group: 'shortcode-core-align',

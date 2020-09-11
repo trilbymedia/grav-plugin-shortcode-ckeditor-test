@@ -110,6 +110,8 @@ export function displaySettings(editor, modelShortcode) {
   const { shortcodeData } = modelShortcode;
   const { shortcode, domShortcode, modelShortcodeChildren, modelParentShortcode } = shortcodeData;
 
+  const plugin = window.nextgenEditor.shortcodePlugins[shortcode.plugin];
+
   const currentAttributes = Object.keys(shortcode.attributes).reduce((acc, attrName) => {
     acc[attrName] = modelShortcode.getAttribute(`sc-${attrName}`);
     return acc;
@@ -143,8 +145,17 @@ export function displaySettings(editor, modelShortcode) {
     reUpcastShortcodeContent(editor, modelShortcode);
   };
 
+  let popupTitle = [
+    (plugin && plugin.title) || '',
+    (shortcode.parent && shortcode.parent.title) || '',
+    shortcode.title || '',
+  ];
+
+  popupTitle = popupTitle.filter((item) => !!item).join(' / ');
+
   showSettingsPopup({
     editor,
+    title: popupTitle,
     modelItem: modelShortcode,
     domDisplayPoint,
     attributes: shortcode.attributes,

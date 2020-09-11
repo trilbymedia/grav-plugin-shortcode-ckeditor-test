@@ -1,5 +1,6 @@
 window.nextgenEditor.addShortcode('tabs', {
   type: 'block',
+  plugin: 'adyen',
   title: 'Tabs',
   button: {
     group: 'adyen',
@@ -52,6 +53,7 @@ window.nextgenEditor.addShortcode('tabs', {
 
 window.nextgenEditor.addShortcode('tab', {
   type: 'block',
+  plugin: 'adyen',
   parent: 'tabs',
   title: 'Tab',
   attributes: {

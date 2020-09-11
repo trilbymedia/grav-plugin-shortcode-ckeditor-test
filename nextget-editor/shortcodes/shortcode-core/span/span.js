@@ -1,5 +1,6 @@
 window.nextgenEditor.addShortcode('span', {
   type: 'inline',
+  plugin: 'shortcode-core',
   title: 'Span',
   button: {
     group: 'shortcode-core',

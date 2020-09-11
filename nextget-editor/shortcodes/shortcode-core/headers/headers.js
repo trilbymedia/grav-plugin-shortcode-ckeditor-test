@@ -7,6 +7,7 @@ window.nextgenEditor.addHook('hookInit', () => {
 for (let i = 1; i <= 6; i++) {
   window.nextgenEditor.addShortcode(`h${i}`, {
     type: 'block',
+    plugin: 'shortcode-core',
     title: `H${i}`,
     button: {
       group: 'shortcode-core-headers',

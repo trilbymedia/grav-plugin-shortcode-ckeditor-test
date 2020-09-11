@@ -1,5 +1,6 @@
 window.nextgenEditor.addShortcode('div', {
   type: 'block',
+  plugin: 'shortcode-core',
   title: 'Div',
   button: {
     group: 'shortcode-core',

@@ -4,6 +4,7 @@ const paragraph = Array(2).fill(sentence).join(' ');
 
 window.nextgenEditor.addShortcode('lorem', {
   type: 'block',
+  plugin: 'shortcode-core',
   title: 'Lorem',
   button: {
     group: 'shortcode-core',

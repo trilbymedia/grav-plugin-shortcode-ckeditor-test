@@ -1,5 +1,6 @@
 window.nextgenEditor.addShortcode('details', {
   type: 'block',
+  plugin: 'shortcode-core',
   title: 'Details',
   button: {
     group: 'shortcode-core',

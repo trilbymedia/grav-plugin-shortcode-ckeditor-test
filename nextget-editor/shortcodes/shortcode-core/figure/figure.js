@@ -1,5 +1,6 @@
 window.nextgenEditor.addShortcode('figure', {
   type: 'block',
+  plugin: 'shortcode-core',
   title: 'Figure',
   button: {
     group: 'shortcode-core',

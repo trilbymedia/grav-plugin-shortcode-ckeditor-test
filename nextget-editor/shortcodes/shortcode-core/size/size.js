@@ -1,5 +1,6 @@
 window.nextgenEditor.addShortcode('size', {
   type: 'inline',
+  plugin: 'shortcode-core',
   title: 'Font Size',
   button: {
     group: 'shortcode-core',

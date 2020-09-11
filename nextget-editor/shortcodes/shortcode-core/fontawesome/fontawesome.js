@@ -1,5 +1,6 @@
 window.nextgenEditor.addShortcode('fa', {
   type: 'inline',
+  plugin: 'shortcode-core',
   title: 'Font Awesome',
   button: {
     group: 'shortcode-core',

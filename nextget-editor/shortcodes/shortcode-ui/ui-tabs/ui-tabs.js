@@ -1,5 +1,6 @@
 window.nextgenEditor.addShortcode('ui-tabs', {
   type: 'block',
+  plugin: 'shortcode-ui',
   title: 'UI Tabs',
   button: {
     group: 'shortcode-ui',
@@ -129,6 +130,7 @@ window.nextgenEditor.addShortcode('ui-tabs', {
 
 window.nextgenEditor.addShortcode('ui-tab', {
   type: 'block',
+  plugin: 'shortcode-ui',
   parent: 'ui-tabs',
   title: 'UI Tab',
   attributes: {

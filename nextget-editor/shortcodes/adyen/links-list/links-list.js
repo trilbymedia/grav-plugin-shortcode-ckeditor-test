@@ -1,5 +1,6 @@
 window.nextgenEditor.addShortcode('links-list', {
   type: 'block',
+  plugin: 'adyen',
   title: 'Links List',
   button: {
     group: 'adyen',
@@ -80,6 +81,7 @@ window.nextgenEditor.addShortcode('links-list', {
 
 window.nextgenEditor.addShortcode('block', {
   type: 'block',
+  plugin: 'adyen',
   parent: 'links-list',
   title: 'Block',
   attributes: {

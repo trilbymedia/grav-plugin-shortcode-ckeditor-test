@@ -1,5 +1,6 @@
 window.nextgenEditor.addShortcode('safe-email', {
   type: 'inline',
+  plugin: 'shortcode-core',
   title: 'Safe Email',
   button: {
     group: 'shortcode-core',

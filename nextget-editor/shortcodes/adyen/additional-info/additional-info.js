@@ -1,5 +1,6 @@
 window.nextgenEditor.addShortcode('additional-info', {
   type: 'block',
+  plugin: 'adyen',
   title: 'Additional Info',
   button: {
     group: 'adyen',

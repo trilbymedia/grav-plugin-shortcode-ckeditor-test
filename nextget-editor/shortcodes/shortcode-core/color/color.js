@@ -1,5 +1,6 @@
 window.nextgenEditor.addShortcode('color', {
   type: 'inline',
+  plugin: 'shortcode-core',
   title: 'Color',
   button: {
     group: 'shortcode-core',

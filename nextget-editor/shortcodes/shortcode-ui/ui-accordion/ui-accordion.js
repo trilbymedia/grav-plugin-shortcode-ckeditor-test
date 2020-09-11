@@ -1,5 +1,6 @@
 window.nextgenEditor.addShortcode('ui-accordion', {
   type: 'block',
+  plugin: 'shortcode-ui',
   title: 'UI Accordion',
   button: {
     group: 'shortcode-ui',
@@ -98,6 +99,7 @@ window.nextgenEditor.addShortcode('ui-accordion', {
 
 window.nextgenEditor.addShortcode('ui-accordion-item', {
   type: 'block',
+  plugin: 'shortcode-ui',
   parent: 'ui-accordion',
   title: 'UI Accordion Item',
   attributes: {
