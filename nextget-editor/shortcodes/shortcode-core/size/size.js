@@ -8,7 +8,7 @@ window.nextgenEditor.addShortcode('size', {
   attributes: {
     size: {
       type: String,
-      title: 'Color',
+      title: 'Size',
       bbcode: true,
       widget: 'input-text',
       default: '14',
