@@ -103,6 +103,8 @@ window.nextgenEditor.addPlugin('GravShortcodeCoreCommand', {
             if (shortcode.type === 'inline') {
               modelWriter.insert(modelShortcode, selection.getLastPosition());
               modelWriter.move(selection.getFirstRange(), modelShortcodeChildren, 'end');
+              modelWriter.insertText('\u200b', modelShortcode, 'before');
+              modelWriter.insertText('\u200b', modelShortcode, 'after');
             }
 
             if (selection.isCollapsed) {

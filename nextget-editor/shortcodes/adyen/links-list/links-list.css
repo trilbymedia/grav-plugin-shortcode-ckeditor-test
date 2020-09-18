@@ -40,7 +40,7 @@ shortcode-links-list_block > > .sc-content > .sc-body {
   color: #06f;
 }
 
-shortcode-links-list > .sc-extra > .add-button {
+shortcode-links-list > .add-button {
   background: #fff;
   border: 1px solid #000;
   border-radius: 50%;
@@ -54,7 +54,7 @@ shortcode-links-list > .sc-extra > .add-button {
   width: 20px;
 }
 
-shortcode-links-list_block > .sc-extra > .add-button {
+shortcode-links-list_block > .add-button {
   background: #fff;
   border: 1px solid #000;
   border-radius: 50%;
@@ -68,7 +68,7 @@ shortcode-links-list_block > .sc-extra > .add-button {
   width: 20px;
 }
 
-shortcode-links-list_block > .sc-extra > .up-button {
+shortcode-links-list_block > .up-button {
   background: #fff;
   border: 1px solid #000;
   border-radius: 50%;
@@ -81,16 +81,16 @@ shortcode-links-list_block > .sc-extra > .up-button {
   width: 20px;
 }
 
-shortcode-links-list_block:first-child > .sc-extra > .up-button {
+shortcode-links-list_block:first-child > .up-button {
   display: none;
 }
 
-shortcode-links-list_block > .sc-extra > .up-button > svg {
+shortcode-links-list_block > .up-button > svg {
   margin: -4px 0 0 -4px;
   transform: rotate(180deg);
 }
 
-shortcode-links-list_block > .sc-extra > .down-button {
+shortcode-links-list_block > .down-button {
   background: #fff;
   border: 1px solid #000;
   border-radius: 50%;
@@ -103,10 +103,10 @@ shortcode-links-list_block > .sc-extra > .down-button {
   width: 20px;
 }
 
-shortcode-links-list_block:last-child > .sc-extra > .down-button {
+shortcode-links-list_block:last-child > .down-button {
   display: none;
 }
 
-shortcode-links-list_block > .sc-extra > .down-button > svg {
+shortcode-links-list_block > .down-button > svg {
   margin: 0 -4px -4px 0px;
 }

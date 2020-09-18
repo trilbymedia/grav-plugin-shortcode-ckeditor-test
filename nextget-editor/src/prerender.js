@@ -118,7 +118,7 @@ window.nextgenEditor.addHook('hookMarkdowntoHTML', {
         }
 
         if (shortcode.type === 'inline') {
-          output = output.replace(hash, `${spacesBefore}[${shortcode.name}${attrLine}]${groups.content}[/${shortcode.name}]${spacesAfter}`);
+          output = output.replace(hash, `${spacesBefore}\u200b[${shortcode.name}${attrLine}]${groups.content}[/${shortcode.name}]\u200b${spacesAfter}`);
         }
       });
     }

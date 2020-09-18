@@ -1,4 +1,4 @@
-shortcode-ui-tabs > .sc-extra > .add-button {
+shortcode-ui-tabs > .add-button {
   background: #fff;
   border: 1px solid #000;
   border-radius: 50%;
@@ -25,7 +25,7 @@ shortcode-ui-tabs_ui-tab > .sc-content > .sc-tab > .sc-title {
   font-weight: 700;
 }
 
-shortcode-ui-tabs_ui-tab > .sc-extra > .add-button {
+shortcode-ui-tabs_ui-tab > .add-button {
   background: #fff;
   border: 1px solid #000;
   border-radius: 50%;
@@ -39,7 +39,7 @@ shortcode-ui-tabs_ui-tab > .sc-extra > .add-button {
   width: 20px;
 }
 
-shortcode-ui-tabs_ui-tab > .sc-extra > .up-button {
+shortcode-ui-tabs_ui-tab > .up-button {
   background: #fff;
   border: 1px solid #000;
   border-radius: 50%;
@@ -52,16 +52,16 @@ shortcode-ui-tabs_ui-tab > .sc-extra > .up-button {
   width: 20px;
 }
 
-shortcode-ui-tabs_ui-tab:first-child > .sc-extra > .up-button {
+shortcode-ui-tabs_ui-tab:first-child > .up-button {
   display: none;
 }
 
-shortcode-ui-tabs_ui-tab > .sc-extra > .up-button > svg {
+shortcode-ui-tabs_ui-tab > .up-button > svg {
   margin: -4px 0 0 -4px;
   transform: rotate(180deg);
 }
 
-shortcode-ui-tabs_ui-tab > .sc-extra > .down-button {
+shortcode-ui-tabs_ui-tab > .down-button {
   background: #fff;
   border: 1px solid #000;
   border-radius: 50%;
@@ -74,10 +74,10 @@ shortcode-ui-tabs_ui-tab > .sc-extra > .down-button {
   width: 20px;
 }
 
-shortcode-ui-tabs_ui-tab:last-child > .sc-extra > .down-button {
+shortcode-ui-tabs_ui-tab:last-child > .down-button {
   display: none;
 }
 
-shortcode-ui-tabs_ui-tab > .sc-extra > .down-button > svg {
+shortcode-ui-tabs_ui-tab > .down-button > svg {
   margin: 0 -4px -4px 0px;
 }

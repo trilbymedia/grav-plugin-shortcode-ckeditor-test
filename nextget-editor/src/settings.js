@@ -145,6 +145,33 @@ export function displaySettings(editor, modelShortcode) {
     reUpcastShortcodeContent(editor, modelShortcode);
   };
 
+  const deleteShortcode = () => {
+    editor.model.change((modelWriter) => {
+      if (shortcode.type === 'block') {
+        if (modelShortcode.parent.isShortcodeChildren && modelShortcode.parent.childCount === 1) {
+          modelWriter.appendElement('paragraph', modelShortcode.parent);
+        }
+
+        modelWriter.remove(modelShortcode);
+      }
+
+      if (shortcode.type === 'inline') {
+        let start = modelWriter.createPositionBefore(modelShortcode);
+        let end = modelWriter.createPositionAfter(modelShortcode);
+
+        if (modelShortcode.previousSibling && modelShortcode.previousSibling.data && modelShortcode.previousSibling.data.endsWith('\u200b')) {
+          start = modelWriter.createPositionAt(modelShortcode.parent, modelShortcode.previousSibling.startOffset + modelShortcode.previousSibling.offsetSize - 1);
+        }
+
+        if (modelShortcode.nextSibling && modelShortcode.nextSibling.data && modelShortcode.nextSibling.data.startsWith('\u200b')) {
+          end = modelWriter.createPositionAt(modelShortcode.parent, modelShortcode.nextSibling.startOffset + 1);
+        }
+
+        modelWriter.remove(modelWriter.createRange(start, end));
+      }
+    });
+  };
+
   let popupTitle = [
     (plugin && plugin.title) || '',
     (shortcode.parent && shortcode.parent.title) || '',
@@ -154,14 +181,13 @@ export function displaySettings(editor, modelShortcode) {
   popupTitle = popupTitle.filter((item) => !!item).join(' / ');
 
   showSettingsPopup({
-    editor,
     title: popupTitle,
-    modelItem: modelShortcode,
     domDisplayPoint,
     attributes: shortcode.attributes,
     currentAttributes,
     parentAttributes,
     childAttributes,
     changeAttribute,
+    deleteItem: deleteShortcode,
   });
 }

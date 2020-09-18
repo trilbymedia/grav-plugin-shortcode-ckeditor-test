@@ -19,7 +19,7 @@ window.nextgenEditor.addHook('hookHTMLtoMarkdown', {
         let regexp = '';
 
         const tagName = `shortcode-${shortcode.name}`;
-        regexp += `<${tagName}[^>]*>(?<content>(((?!(${openingRegexp}|(<\\/${tagName}>))).)|\\n)*)<\\/${tagName}>`;
+        regexp += `(\u200b)?(?<shortcode><${tagName}[^>]*>(?<content>(((?!(${openingRegexp}|(<\\/${tagName}>))).)|\\n)*)<\\/${tagName}>)(\u200b)?`;
 
         output = output.replace(new RegExp(regexp, 'g'), (...matches) => {
           shortcodeCounter += 1;
@@ -27,7 +27,7 @@ window.nextgenEditor.addHook('hookHTMLtoMarkdown', {
           let replacement = '';
           const groups = matches.pop();
 
-          const domShortcode = new DOMParser().parseFromString(matches[0], 'text/html').body.firstChild;
+          const domShortcode = new DOMParser().parseFromString(groups.shortcode, 'text/html').body.firstChild;
 
           const attrLine = Object.keys(shortcode.attributes).reduce((acc, attrName) => {
             const attribute = shortcode.attributes[attrName];

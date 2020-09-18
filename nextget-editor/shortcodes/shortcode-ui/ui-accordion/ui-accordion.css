@@ -1,4 +1,4 @@
-shortcode-ui-accordion > .sc-extra > .add-button {
+shortcode-ui-accordion > .add-button {
   background: #fff;
   border: 1px solid #000;
   border-radius: 50%;
@@ -25,7 +25,7 @@ shortcode-ui-accordion_ui-accordion-item > .sc-content > .sc-accordion-item > .s
   font-weight: 700;
 }
 
-shortcode-ui-accordion_ui-accordion-item > .sc-extra > .add-button {
+shortcode-ui-accordion_ui-accordion-item > .add-button {
   background: #fff;
   border: 1px solid #000;
   border-radius: 50%;
@@ -39,7 +39,7 @@ shortcode-ui-accordion_ui-accordion-item > .sc-extra > .add-button {
   width: 20px;
 }
 
-shortcode-ui-accordion_ui-accordion-item > .sc-extra > .up-button {
+shortcode-ui-accordion_ui-accordion-item > .up-button {
   background: #fff;
   border: 1px solid #000;
   border-radius: 50%;
@@ -52,16 +52,16 @@ shortcode-ui-accordion_ui-accordion-item > .sc-extra > .up-button {
   width: 20px;
 }
 
-shortcode-ui-accordion_ui-accordion-item:first-child > .sc-extra > .up-button {
+shortcode-ui-accordion_ui-accordion-item:first-child > .up-button {
   display: none;
 }
 
-shortcode-ui-accordion_ui-accordion-item > .sc-extra > .up-button > svg {
+shortcode-ui-accordion_ui-accordion-item > .up-button > svg {
   margin: -4px 0 0 -4px;
   transform: rotate(180deg);
 }
 
-shortcode-ui-accordion_ui-accordion-item > .sc-extra > .down-button {
+shortcode-ui-accordion_ui-accordion-item > .down-button {
   background: #fff;
   border: 1px solid #000;
   border-radius: 50%;
@@ -74,10 +74,10 @@ shortcode-ui-accordion_ui-accordion-item > .sc-extra > .down-button {
   width: 20px;
 }
 
-shortcode-ui-accordion_ui-accordion-item:last-child > .sc-extra > .down-button {
+shortcode-ui-accordion_ui-accordion-item:last-child > .down-button {
   display: none;
 }
 
-shortcode-ui-accordion_ui-accordion-item > .sc-extra > .down-button > svg {
+shortcode-ui-accordion_ui-accordion-item > .down-button > svg {
   margin: 0 -4px -4px 0px;
 }
