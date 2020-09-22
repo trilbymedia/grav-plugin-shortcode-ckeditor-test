@@ -27,7 +27,7 @@ window.nextgenEditor.addShortcode('safe-email', {
   },
   content({ writer, container, children, attributes }) {
     const wrapper = attributes.autolink === 'true'
-      ? writer.createElement('a_reserved', { href: `mailto:example@gmail.com` })
+      ? writer.createElement('a_reserved', { href: `mailto:${(children[0] && children[0].data) || ''}` })
       : writer.createElement('span');
 
     writer.append(wrapper, container);

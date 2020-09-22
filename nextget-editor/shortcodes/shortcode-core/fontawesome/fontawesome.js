@@ -24,7 +24,7 @@ window.nextgenEditor.addShortcode('fa', {
   content({ writer, container, attributes }) {
     let faclass = 'fa';
 
-    let icon = !attributes.icon.startsWith('fa-')
+    let icon = attributes.icon && !attributes.icon.startsWith('fa-')
       ? `fa-${attributes.icon}`
       : attributes.icon;
 
@@ -38,7 +38,7 @@ window.nextgenEditor.addShortcode('fa', {
 
           icon += !extra.startsWith('fa-')
             ? ` fa-${extra}`
-            : ` ${extra}`
+            : ` ${extra}`;
         }
       });
     }

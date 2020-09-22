@@ -43,40 +43,6 @@ window.nextgenEditor.addShortcode('links-list', {
 
     return pEmpty;
   },
-  extra(args) {
-    const { writer, container } = args;
-    writer.append(this.getAddButton(args), container);
-  },
-  getAddButton({ writer, editor, data }) {
-    const addButton = writer.createElement('div', {
-      class: 'add-button',
-      title: 'Add new link',
-    });
-
-    const addButtonSvg = writer.createElement('svg', {
-      viewBox: '0 0 24 24',
-      fill: 'currentColor',
-      stroke: 'none',
-      events: {
-        click() {
-          editor.model.change((writer2) => {
-            writer2.setSelection(data.modelShortcodeChildren, 'end');
-            editor.execute('shortcode_links-list_block');
-          });
-        },
-      },
-    });
-
-    writer.append(addButtonSvg, addButton);
-
-    const addButtonPath = writer.createElement('path', {
-      d: 'M17 11a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4h4z',
-    });
-
-    writer.append(addButtonPath, addButtonSvg);
-
-    return addButton;
-  },
 });
 
 window.nextgenEditor.addShortcode('block', {
@@ -130,7 +96,7 @@ window.nextgenEditor.addShortcode('block', {
           { value: 'medium', label: 'Medium' },
           { value: 'large', label: 'Large' },
         ],
-        visible: ({ attributes, parentAttributes }) => parentAttributes.template === 'fingerposts',
+        visible: ({ parentAttributes }) => parentAttributes.template === 'fingerposts',
       },
       default: 'medium',
     },
@@ -181,115 +147,6 @@ window.nextgenEditor.addShortcode('block', {
       return link;
     }
 
-    return null;
-  },
-  extra(args) {
-    const { writer, container } = args;
-
-    writer.append(this.getAddButton(args), container);
-    writer.append(this.getUpButton(args), container);
-    writer.append(this.getDownButton(args), container);
-  },
-  getAddButton({ writer, editor, data }) {
-    const addButton = writer.createElement('div', {
-      class: 'add-button',
-      title: 'Add new link',
-    });
-
-    const addButtonSvg = writer.createElement('svg', {
-      viewBox: '0 0 24 24',
-      fill: 'currentColor',
-      stroke: 'none',
-      events: {
-        click() {
-          editor.model.change((writer2) => {
-            writer2.setSelection(data.modelShortcode, 'before');
-            editor.execute('shortcode_links-list_block');
-          });
-        },
-      },
-    });
-
-    writer.append(addButtonSvg, addButton);
-
-    const addButtonPath = writer.createElement('path', {
-      d: 'M17 11a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4h4z',
-    });
-
-    writer.append(addButtonPath, addButtonSvg);
-
-    return addButton;
-  },
-  getUpButton({ writer, editor, data }) {
-    const upButton = writer.createElement('div', {
-      class: 'up-button',
-      title: 'Move up',
-    });
-
-    const upButtonSvg = writer.createElement('svg', {
-      viewBox: '0 0 24 24',
-      fill: 'currentColor',
-      stroke: 'none',
-      events: {
-        click() {
-          editor.model.change((writer2) => {
-            const range = writer2.createRange(
-              writer2.createPositionBefore(data.modelShortcode),
-              writer2.createPositionAfter(data.modelShortcode),
-            );
-
-            writer2.move(range, data.modelShortcode.previousSibling, 'before');
-          });
-        },
-      },
-    });
-
-    writer.append(upButtonSvg, upButton);
-
-    const upButtonPath = writer.createElement('path', {
-      d: 'M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z',
-      'fill-rule': 'evenodd',
-      'clip-rule': 'evenodd',
-    });
-
-    writer.append(upButtonPath, upButtonSvg);
-
-    return upButton;
-  },
-  getDownButton({ writer, editor, data }) {
-    const downButton = writer.createElement('div', {
-      class: 'down-button',
-      title: 'Move down',
-    });
-
-    const downButtonSvg = writer.createElement('svg', {
-      viewBox: '0 0 24 24',
-      fill: 'currentColor',
-      stroke: 'none',
-      events: {
-        click() {
-          editor.model.change((writer2) => {
-            const range = writer2.createRange(
-              writer2.createPositionBefore(data.modelShortcode),
-              writer2.createPositionAfter(data.modelShortcode),
-            );
-
-            writer2.move(range, data.modelShortcode.nextSibling, 'after');
-          });
-        },
-      },
-    });
-
-    writer.append(downButtonSvg, downButton);
-
-    const downButtonPath = writer.createElement('path', {
-      d: 'M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z',
-      'fill-rule': 'evenodd',
-      'clip-rule': 'evenodd',
-    });
-
-    writer.append(downButtonPath, downButtonSvg);
-
-    return downButton;
+    return writer.createElement('div');
   },
 });

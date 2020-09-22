@@ -8,6 +8,10 @@
   outline-color: #ffc83d;
 }
 
+.ck-shortcode-child:hover {
+  outline-color: #1f89e5;
+}
+
 .ck-shortcode-block {
   border: 1px solid #ccc;
   display: block;
@@ -32,9 +36,28 @@
 }
 
 .ck-shortcode-block > .sc-header > .sc-settings {
+  color: #ffc83d;
   font-size: 0;
   line-height: 0;
   margin-left: auto;
+  opacity: 0;
+  transition: opacity .2s ease, color .2s ease;
+}
+
+.ck-shortcode-block.ck-shortcode-child > .sc-header > .sc-settings {
+  color: #1f89e5;
+}
+
+.ck-shortcode-block > .sc-header > .sc-settings:hover {
+  color: #1f89e5;
+}
+
+.ck-shortcode-block.ck-shortcode-child > .sc-header > .sc-settings:hover {
+  opacity: .5
+}
+
+.ck-shortcode-block:hover > .sc-header > .sc-settings {
+  opacity: 1;
 }
 
 .ck-shortcode-block > .sc-header > .sc-settings > svg {
@@ -162,4 +185,94 @@
 
 .ck-shortcode > .sc-insert > svg > line {
   stroke-dasharray: 7;
+}
+
+.ck-shortcode > .sc-add {
+  align-items: center;
+  background: #1f89e5;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  height: 20px;
+  justify-content: center;
+  left: 40px;
+  opacity: 0;
+  position: absolute;
+  transition: opacity .2s ease;
+  visibility: hidden;
+  width: 20px;
+  top: -13px;
+}
+
+.ck-shortcode > .sc-add-after {
+  bottom: -11px;
+  left: auto;
+  right: 40px;
+  top: auto;
+}
+
+.ck-shortcode:hover > .sc-add {
+  opacity: 1;
+  visibility: visible;
+  z-index: 1;
+}
+
+.ck-shortcode > .sc-add > svg {
+  color: #fff;
+  height: 16px;
+  transition: opacity .2s ease;
+  width: 16px;
+}
+
+.ck-shortcode > .sc-add:hover > svg {
+  opacity: .5;
+}
+
+.ck-shortcode > .sc-move {
+  background: #1f89e5;
+  border-radius: 50%;
+  cursor: pointer;
+  height: 20px;
+  opacity: 0;
+  position: absolute;
+  right: -10px;
+  transition: opacity .2s ease;
+  visibility: hidden;
+  width: 20px;
+  top: 38px;
+}
+
+.ck-shortcode > .sc-move-up {
+  transform: rotate(180deg);
+}
+
+.ck-shortcode:first-child > .sc-move-up,
+.ck-shortcode:last-child > .sc-move-down {
+  display: none;
+}
+
+.ck-shortcode > .sc-move-down {
+  bottom: 4px;
+  left: auto;
+  top: auto;
+}
+
+.ck-shortcode:hover > .sc-move {
+  opacity: 1;
+  visibility: visible;
+  z-index: 1;
+}
+
+.ck-shortcode > .sc-move > svg {
+  color: #fff;
+  height: 20px;
+  left: 1.5px;
+  position: absolute;
+  top: 2px;
+  transition: opacity .2s ease;
+  width: 20px;
+}
+
+.ck-shortcode > .sc-move:hover > svg {
+  opacity: .5;
 }

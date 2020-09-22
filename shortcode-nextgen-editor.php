@@ -290,9 +290,7 @@ class ShortcodeNextGenEditorPlugin extends Plugin
 
     public function registerNextGenEditorPluginShortcodesUI(&$plugins) {
         $plugins['js'][] = 'plugin://shortcode-nextgen-editor/nextget-editor/shortcodes/shortcode-ui/shortcode-ui.js';
-        $plugins['css'][] = 'plugin://shortcode-nextgen-editor/nextget-editor/shortcodes/shortcode-ui/ui-accordion/ui-accordion.css';
         $plugins['js'][] = 'plugin://shortcode-nextgen-editor/nextget-editor/shortcodes/shortcode-ui/ui-accordion/ui-accordion.js';
-        $plugins['css'][] = 'plugin://shortcode-nextgen-editor/nextget-editor/shortcodes/shortcode-ui/ui-tabs/ui-tabs.css';
         $plugins['js'][] = 'plugin://shortcode-nextgen-editor/nextget-editor/shortcodes/shortcode-ui/ui-tabs/ui-tabs.js';
     }
 
@@ -302,7 +300,6 @@ class ShortcodeNextGenEditorPlugin extends Plugin
         $plugins['js'][] = 'plugin://shortcode-nextgen-editor/nextget-editor/shortcodes/adyen/additional-info/additional-info.js';
         $plugins['css'][] = 'plugin://shortcode-nextgen-editor/nextget-editor/shortcodes/adyen/links-list/links-list.css';
         $plugins['js'][] = 'plugin://shortcode-nextgen-editor/nextget-editor/shortcodes/adyen/links-list/links-list.js';
-        $plugins['css'][] = 'plugin://shortcode-nextgen-editor/nextget-editor/shortcodes/adyen/tabs/tabs.css';
         $plugins['js'][] = 'plugin://shortcode-nextgen-editor/nextget-editor/shortcodes/adyen/tabs/tabs.js';
     }
 }

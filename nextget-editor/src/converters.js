@@ -165,56 +165,132 @@ export function createModelShortcode(editor, shortcode, modelWriter, viewItem) {
     modelWriter.append(modelContent, modelShortcode);
     shortcodeData.modelContent = modelContent;
 
-    ['before', 'after'].forEach((where) => {
-      const modelInsert = modelWriter.createElement('div', {
-        class: `sc-insert sc-insert-${where}`,
-        title: `Insert paragraph ${where} shortcode`,
-        events: {
-          click() {
-            editor.execute('insertParagraph', {
-              position: editor.model.createPositionAt(modelShortcode, where),
-            });
+    if (!shortcode.parent) {
+      ['before', 'after'].forEach((where) => {
+        const modelInsert = modelWriter.createElement('div', {
+          class: `sc-insert sc-insert-${where}`,
+          title: `Insert paragraph ${where} shortcode`,
+          events: {
+            click() {
+              editor.execute('insertParagraph', {
+                position: editor.model.createPositionAt(modelShortcode, where),
+              });
+            },
           },
-        },
+        });
+
+        modelWriter.append(modelInsert, modelShortcode);
+
+        const modelInsertSvg = modelWriter.createElement('svg', {
+          viewBox: '0 0 10 8',
+          fill: 'currentColor',
+          stroke: 'none',
+        });
+
+        modelWriter.append(modelInsertSvg, modelInsert);
+
+        const modelInsertSvgPolyline = modelWriter.createElement('polyline', {
+          points: '8.05541992 0.263427734 8.05541992 4.23461914 1.28417969 4.23461914',
+          transform: 'translate(1,0)',
+        });
+
+        modelWriter.append(modelInsertSvgPolyline, modelInsertSvg);
+
+        const modelInsertSvgLine1 = modelWriter.createElement('line', {
+          x1: '0',
+          y1: '4.21581031',
+          x2: '2',
+          y2: '2.17810059',
+          transform: 'translate(1, 0)',
+        });
+
+        modelWriter.append(modelInsertSvgLine1, modelInsertSvg);
+
+        const modelInsertSvgLine2 = modelWriter.createElement('line', {
+          x1: '0',
+          y1: '6.21581031',
+          x2: '2',
+          y2: '4.17810059',
+          transform: 'translate(2, 5.196955) scale(1, -1) translate(-1, -5.196955)',
+        });
+
+        modelWriter.append(modelInsertSvgLine2, modelInsertSvg);
+      });
+    }
+
+    if (shortcode.parent) {
+      ['before', 'after'].forEach((where) => {
+        const modelAdd = modelWriter.createElement('div', {
+          class: `sc-add sc-add-${where}`,
+          title: `Insert new ${shortcode.title} ${where}`,
+          events: {
+            click() {
+              editor.model.change((modelWriter2) => {
+                modelWriter2.setSelection(modelShortcode, where);
+                editor.execute(modelShortcode.name);
+              });
+            },
+          },
+        });
+
+        modelWriter.append(modelAdd, modelShortcode);
+
+        const modelAddSvg = modelWriter.createElement('svg', {
+          viewBox: '0 0 24 24',
+          fill: 'currentColor',
+          stroke: 'none',
+        });
+
+        modelWriter.append(modelAddSvg, modelAdd);
+
+        const modelAddSvgPath = modelWriter.createElement('path', {
+          d: 'M17 11a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4h4z',
+        });
+
+        modelWriter.append(modelAddSvgPath, modelAddSvg);
       });
 
-      modelWriter.append(modelInsert, modelShortcode);
+      ['up', 'down'].forEach((where) => {
+        const modelMove = modelWriter.createElement('div', {
+          class: `sc-move sc-move-${where}`,
+          title: `Move ${where}`,
+          events: {
+            click() {
+              editor.model.change((modelWriter2) => {
+                const range = modelWriter2.createRange(
+                  modelWriter2.createPositionBefore(modelShortcode),
+                  modelWriter2.createPositionAfter(modelShortcode),
+                );
 
-      const modelInsertSvg = modelWriter.createElement('svg', {
-        viewBox: '0 0 10 8',
-        fill: 'currentColor',
-        stroke: 'none',
+                if (where === 'up') {
+                  modelWriter2.move(range, modelShortcode.previousSibling, 'before');
+                } else {
+                  modelWriter2.move(range, modelShortcode.nextSibling, 'after');
+                }
+              });
+            },
+          },
+        });
+
+        modelWriter.append(modelMove, modelShortcode);
+
+        const modelAddSvg = modelWriter.createElement('svg', {
+          viewBox: '0 0 24 24',
+          fill: 'currentColor',
+          stroke: 'none',
+        });
+
+        modelWriter.append(modelAddSvg, modelMove);
+
+        const modelMoveSvgPath = modelWriter.createElement('path', {
+          d: 'M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z',
+          'fill-rule': 'evenodd',
+          'clip-rule': 'evenodd',
+        });
+
+        modelWriter.append(modelMoveSvgPath, modelAddSvg);
       });
-
-      modelWriter.append(modelInsertSvg, modelInsert);
-
-      const modelInsertSvgPolyline = modelWriter.createElement('polyline', {
-        points: '8.05541992 0.263427734 8.05541992 4.23461914 1.28417969 4.23461914',
-        transform: 'translate(1,0)',
-      });
-
-      modelWriter.append(modelInsertSvgPolyline, modelInsertSvg);
-
-      const modelInsertSvgLine1 = modelWriter.createElement('line', {
-        x1: '0',
-        y1: '4.21581031',
-        x2: '2',
-        y2: '2.17810059',
-        transform: 'translate(1, 0)',
-      });
-
-      modelWriter.append(modelInsertSvgLine1, modelInsertSvg);
-
-      const modelInsertSvgLine2 = modelWriter.createElement('line', {
-        x1: '0',
-        y1: '6.21581031',
-        x2: '2',
-        y2: '4.17810059',
-        transform: 'translate(2, 5.196955) scale(1, -1) translate(-1, -5.196955)',
-      });
-
-      modelWriter.append(modelInsertSvgLine2, modelInsertSvg);
-    });
+    }
   }
 
   if (shortcode.type === 'inline') {
@@ -233,8 +309,11 @@ export function createModelShortcode(editor, shortcode, modelWriter, viewItem) {
   }
 
   const modelShortcodeChildren = shortcode.content({ ...argsForRender, container: modelContent });
-  modelShortcodeChildren.shortcodeData = shortcodeData;
-  modelShortcodeChildren.isShortcodeChildren = true;
+
+  if (modelShortcodeChildren) {
+    modelShortcodeChildren.shortcodeData = shortcodeData;
+    modelShortcodeChildren.isShortcodeChildren = true;
+  }
 
   shortcodeData.modelShortcodeChildren = modelShortcodeChildren;
 
@@ -339,6 +418,13 @@ window.nextgenEditor.addPlugin('GravShortcodeCoreConverters', {
 
         viewWriter.addClass('ck-shortcode', viewShortcode);
         viewWriter.addClass(`ck-shortcode-${shortcode.type}`, viewShortcode);
+
+        if (shortcode.child) {
+          viewWriter.addClass('ck-shortcode-parent', viewShortcode);
+        }
+        if (shortcode.parent) {
+          viewWriter.addClass('ck-shortcode-child', viewShortcode);
+        }
 
         setTimeout(() => {
           const domShortcode = this.editor.editing.view.domConverter.mapViewToDom(viewShortcode);

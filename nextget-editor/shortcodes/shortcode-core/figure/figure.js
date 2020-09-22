@@ -42,7 +42,7 @@ window.nextgenEditor.addShortcode('figure', {
       writer.appendText(attributes.class, [...container.getChildren()].pop());
     }
   },
-  content({ editor, writer, container, attributes }) {
+  content({ writer, container, attributes }) {
     const wrapper = writer.createElement('div', {
       id: attributes.id,
       class: attributes.class,
@@ -62,7 +62,7 @@ window.nextgenEditor.addShortcode('figure', {
       setTimeout(() => {
         const view = editor.data.processor.toView(attributes.caption);
         const model = editor.data.toModel(view, 'paragraph');
-        
+
         editor.model.change((writer) => {
           writer.append(model, caption);
         });

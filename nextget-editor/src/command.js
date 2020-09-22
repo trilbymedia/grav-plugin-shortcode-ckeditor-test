@@ -5,7 +5,7 @@ const Command = window.nextgenEditor.classes.core.command.class;
 window.nextgenEditor.addPlugin('GravShortcodeCoreCommand', {
   init() {
     Object.values(window.nextgenEditor.shortcodes).forEach((shortcode) => {
-      const commandName = `shortcode_${shortcode.name}`;
+      const commandName = `shortcode-${shortcode.name}`;
 
       class GravShortcodeCoreCommand extends Command {
         refresh() {

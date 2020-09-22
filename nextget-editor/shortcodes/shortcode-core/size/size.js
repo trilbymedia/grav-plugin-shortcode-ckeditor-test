@@ -16,7 +16,7 @@ window.nextgenEditor.addShortcode('size', {
     },
   },
   content({ writer, container, attributes }) {
-    const size = !isNaN(+attributes.size)
+    const size = !Number.isNaN(+attributes.size)
       ? `${attributes.size}px`
       : attributes.size;
 

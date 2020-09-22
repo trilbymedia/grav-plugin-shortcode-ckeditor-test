@@ -71,7 +71,7 @@ window.nextgenEditor.addShortcode('lorem', {
     } else if (attributes.s) {
       const text = Array(attributes.s).fill(sentence).join(' ');
       writer.appendText(text, content);
-    } else {
+    } else if (attributes.p) {
       [...Array(attributes.p)].forEach(() => {
         const p = writer.createElement('paragraph');
         writer.appendText(paragraph, p);
