@@ -1,0 +1,13 @@
+shortcode-block[name="additional-info"] > .sc-content > .sc-title > p {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 16px 8px 0!important;
+}
+
+shortcode-block[name="additional-info"] > .sc-content > .sc-link > p {
+  margin: 0 8px 16px!important;
+}
+
+shortcode-block[name="additional-info"] > .sc-content > .sc-link > p > a {
+  color: #1c90fb;
+}
