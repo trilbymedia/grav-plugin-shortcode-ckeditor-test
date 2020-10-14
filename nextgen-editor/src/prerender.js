@@ -6,22 +6,56 @@ window.nextgenEditor.addHook('hookMarkdowntoHTML', {
     const realNames = Object.values(window.nextgenEditor.shortcodes).map((shortcode) => shortcode.realName)
       .filter((value, index, self) => self.indexOf(value) === index);
 
-    const openingRegexp = realNames
-      .map((name) => `(\\[${name}[^\\]]*\\])`).join('|');
-
-    realNames.forEach((name) => {
-      const regexp = `\\[${name}(?<attributes>(=| +)[^/]*)?\\/\\]`;
+    realNames.forEach((realName) => {
+      const regexp = `\\[${realName}(?<attributes>(=| +)[^/]*)?\\/\\]`;
 
       output = output.replace(new RegExp(regexp, 'g'), (...matches) => {
-        const groups = matches.pop();
-
-        const attributes = groups.attributes.trim()
-          ? `${groups.attributes}`
-          : '';
-
-        return `[${name}${attributes}][/${name}]`;
+        const { attributes } = matches.pop();
+        return `[${realName}${attributes}][/${realName}]`;
       });
     });
+
+    const hashMap = {};
+    let shortcodeCounter = 1;
+
+    while (shortcodeCounter > 0) {
+      shortcodeCounter = 0;
+
+      // eslint-disable-next-line no-loop-func
+      realNames.forEach((realName) => {
+        const regexp = `\\[${realName}(?<attributes>(=| +)[^\\]]*)?\\](?<content>(((?!((\\[${realName}[^\\]]*\\])|(\\[\\/${realName}\\]))).)|\\n)*)$`;
+
+        output = output.replace(new RegExp(regexp), (...matches) => {
+          shortcodeCounter = 1;
+          const { attributes, content } = matches.pop();
+
+          const hash = Math.random().toString(36).slice(2);
+          hashMap[hash] = { realName, attributes };
+
+          return `${hash}${content}`;
+        });
+      });
+    }
+
+    Object.keys(hashMap).forEach((hash) => {
+      const { realName, attributes } = hashMap[hash];
+      output = output.replace(hash, `[${realName}${attributes}][/${realName}]`);
+    });
+
+    return output;
+  },
+});
+
+window.nextgenEditor.addHook('hookMarkdowntoHTML', {
+  weight: -50,
+  handler(options, input) {
+    let output = input;
+
+    const realNames = Object.values(window.nextgenEditor.shortcodes).map((shortcode) => shortcode.realName)
+      .filter((value, index, self) => self.indexOf(value) === index);
+
+    const openingRegexp = realNames
+      .map((name) => `(\\[${name}[^\\]]*\\])`).join('|');
 
     const hashMap = {};
     let shortcodeCounter = 1;
